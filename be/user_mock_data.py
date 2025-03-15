@@ -1,4 +1,5 @@
 from person import Person
+from matcher import Matcher
 from matching_algos.cosine_similarity import cosine_similarity
 
 johndoe_data = {
@@ -232,6 +233,13 @@ jhindoe_data = {
 john = Person(johndoe_data)
 jane = Person(janedoe_data)
 jhin = Person(jhindoe_data)
+
+matcher = Matcher()
+matcher.add_person(john)
+matcher.add_person(jane)
+matcher.add_person(jhin)
+
+matcher.generate_matches()
 
 print("John Doe Self Profile Vector:")
 print(john.self_answer_weights)
