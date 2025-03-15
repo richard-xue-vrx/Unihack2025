@@ -45,14 +45,14 @@ def gale_shapley(men_preference, women_preference):
 
             if w_partner[w] is None:
                 # If woman free, they get engaged
-                w_partner[w] = [m, cosine, True]
-                m_partner[m] = [w, cosine, True]
+                w_partner[w] = [m, cosine, True if cosine > 0 else False]
+                m_partner[m] = [w, cosine, True if cosine > 0 else False]
             else:
                 # Woman is already engaged, check preference
                 m1 = w_partner[w][0]
                 if not wPrefersM1OverM(women_preference, w, m, m1):
-                    w_partner[w] = [m, cosine, True]
-                    m_partner[m] = [w, cosine, True]
+                    w_partner[w] = [m, cosine, True if cosine > 0 else False]
+                    m_partner[m] = [w, cosine, True if cosine > 0 else False]
                     m_partner[m1] = None
                     free_men.add(m1)
 

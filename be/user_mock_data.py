@@ -252,8 +252,8 @@ if __name__ == "__main__":
                 "is_similar_question": False,
                 "question_text": "What sounds more fun?",
                 "answers": [
-                    {"A last minute road trip": 1},
-                    {"A cozy night at home": 0}
+                    {"A last minute road trip": 0},
+                    {"A cozy night at home": 1}
                 ]
             },
             {
@@ -263,8 +263,8 @@ if __name__ == "__main__":
                 "is_similar_question": False,
                 "question_text": "How do you feel about last-minute plans?",
                 "answers": [
-                    {"Love them!": 0},
-                    {"Not a fan - I like plans": 1}
+                    {"Love them!": 1},
+                    {"Not a fan - I like plans": 0}
                 ]
             },
             {
@@ -274,10 +274,10 @@ if __name__ == "__main__":
                 "is_similar_question": True,
                 "question_text": "If you had a free day, what would you most likely do?",
                 "answers": [
-                    {"Binge-watch a new show": 9},
-                    {"Hit the gym or go for a hike": 10},
-                    {"Read a book or listen to a podcast": 2},
-                    {"Go out and explore the city": 3}
+                    {"Binge-watch a new show": 3},
+                    {"Hit the gym or go for a hike": 2},
+                    {"Read a book or listen to a podcast": 9},
+                    {"Go out and explore the city": 10}
                 ]
             },
             {
@@ -287,7 +287,7 @@ if __name__ == "__main__":
                 "is_similar_question": True,
                 "question_text": "How ambitious are you? (1-10)  ",
                 "answers": [
-                    {"How ambitious are you?": 2}
+                    {"How ambitious are you?": 10}
                 ]
             },
             {
@@ -297,16 +297,26 @@ if __name__ == "__main__":
                 "is_similar_question": True,
                 "question_text": "Best friends wedding and you discover their partner is cheating, do you tell them?",
                 "answers": [
-                    {"Yes": 0},
-                    {"No": 1}
+                    {"Yes": 1},
+                    {"No": 0}
                 ]
             }
         ]
     }
 
-    # john = Person(johndoe_data)
-    # jane = Person(janedoe_data)
-    # jhin = Person(jhindoe_data)
+    john = Person(johndoe_data)
+    jane = Person(janedoe_data)
+    jhin = Person(jhindoe_data)
+    james = Person(jamesdoe_data)
+
+    matcher = Matcher()
+    matcher.add_person(john)
+    matcher.add_person(jane)
+    matcher.add_person(jhin)
+    matcher.add_person(james)
+
+    matcher.generate_matches()
+    print(matcher.matches)
 
     # print("John Doe Self Profile Vector:")
     # print(john.self_answer_weights)
