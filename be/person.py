@@ -1,5 +1,6 @@
 
 # Person gets populated
+import math
 class Person:
     def __init__(self, survey_json):
         self.survey_json = survey_json
@@ -91,7 +92,8 @@ class Question:
 class BinaryQuestion (Question):
     def __init__(self, question_json):
         super().__init__(question_json)
-        self.question_type_weight = 1
+        # so that it has same wieght as a ranked question (which has 4 dimensions)
+        self.question_type_weight = math.sqrt(2)
 
     def encode(self, category_weights):
         """
@@ -146,7 +148,8 @@ class RankedQuestion (Question):
 class ScaleQuestion (Question):
     def __init__(self, question_json):
         super().__init__(question_json)
-        self.question_type_weight = 1
+        # so that it has same wieght as a ranked question (which has 4 dimensions)
+        self.question_type_weight = 2
 
     def encode(self, category_weights):
         """
