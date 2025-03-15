@@ -39,7 +39,7 @@ export default function Home() {
           />
         </motion.div>
       </div>
-      <Link href='/onboarding' className="underline underline-offset-2 opacity-60 hover:opacity-100 transition">
+      <Link href='/survey/onboarding' className="underline underline-offset-2 opacity-60 hover:opacity-100 transition">
         Get started →
       </Link>
     </div>

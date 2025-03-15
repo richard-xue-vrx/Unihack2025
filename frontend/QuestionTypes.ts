@@ -18,15 +18,18 @@ export interface Question {
 }
 
 export interface Ranked extends Question {
+  type: "RANKED"
   answers: string[],
 }
 
 export interface Scale extends Question {
+  type: "SCALE"
   // We assume that the answers are always 1 to 5
 }
 
 export interface Binary extends Question {
   // We assume the answers are either 1 or 0 for Yes or No
+  type: "BINARY"
   answers: string[],
 }
 
@@ -107,7 +110,7 @@ const lifestyleQuestion2: Binary = {
 
 const lifestyleQuestion3: Binary = {
   category_name: "lifestyle",
-  type: "RANKED",
+  type: "BINARY",
   is_self_question: true,
   is_similar_question: true,
   question: "On the weekend you're more likely to?",
@@ -121,7 +124,7 @@ const lifestyleQuestion3: Binary = {
 
 const lifestyleQuestion4: Binary = {
   category_name: "lifestyle",
-  type: "RANKED",
+  type: "BINARY",
   is_self_question: true,
   is_similar_question: true,
   question: "On the weekend you're more likely to?",
@@ -131,11 +134,11 @@ const lifestyleQuestion4: Binary = {
     "☕ Coffee at a cute café",
     "🌳 A scenic walk in the park"
   ]
-} 
+}
 
 const lifestyleQuestion5: Binary = {
   category_name: "lifestyle",
-  type: "SCALE",
+  type: "BINARY",
   is_self_question: true,
   is_similar_question: true,
   question: "On a scale of 1 to 5, how often do you exercise?",
@@ -143,11 +146,11 @@ const lifestyleQuestion5: Binary = {
     "🛋️ Never",
     "🏋️‍♀ Daily, without fail!"
   ]
-} 
+}
 
 const lifestyleQuestion6: Binary = {
   category_name: "lifestyle",
-  type: "SCALE",
+  type: "BINARY",
   is_self_question: true,
   is_similar_question: true,
   question: "On a scale of 1 to 5, how much do you love traveling?",
@@ -155,22 +158,22 @@ const lifestyleQuestion6: Binary = {
     "🏠 I prefer staying home",
     "✈ I’m always planning my next trip"
   ]
-} 
+}
 
 export const survey: Survey = {
   sections: [
     {
-      category: "interests_hobbies",
+      category: "personality",
       questions: [
         exampleRankedQuestion,
         exampleRankedQuestion2
       ]
     },
     {
-      category: "personality",
+      category: "interests_hobbies",
       questions: [
-        exampleBinaryQuestion,
-        exampleBinaryQuestion2
+        exampleRankedQuestion,
+        exampleRankedQuestion2
       ]
     },
     {
