@@ -92,17 +92,23 @@ class Matcher:
 
 if __name__ == "__main__":
     matcher = Matcher()
-    dict1 = {
-        'How important is honesty to you?': 9,
-        'How do you handle conflict?': 8,
-        'Do you prefer structure or spontaneity?': 7
+    men_preference1 = {
+        "a": [("g", 0.8), ("f", 0.5), ("h", -0.2), ("e", -0.6)],
+        "b": [("h", 0.9), ("g", 0.3), ("f", -0.4), ("e", -0.7)],
+        "c": [("f", 0.7), ("h", 0.1), ("g", -0.5), ("e", -0.9)],
+        "d": [("g", 0.6), ("e", 0.4), ("f", -0.3), ("h", -0.8)],
+        "e": [("e", 0.7), ("f", 0.2), ("h", -0.1), ("g", -0.5)]
     }
 
-    dict2 = {
-        'How important is honesty to you?': 7,
-        'How do you handle conflict?': 8,
-        'Do you prefer structure or spontaneity?': 6
+    women_preference1 = {
+        "e": [("b", 0.9), ("e", 0.3), ("c", 0.2), ("a", -0.4), ("d", -0.6)],
+        "f": [("e", 0.8), ("b", 0.5), ("d", -0.2), ("c", -0.7), ("a", -0.9)],
+        "g": [("b", 0.7), ("a", 0.6), ("d", 0.4), ("e", -0.3), ("c", -0.8)],
+        "h": [("c", 0.7), ("b", 0.3), ("e", 0.1), ("d", -0.5), ("a", -0.9)]
     }
-
-    similarity = cosine_similarity(dict1, dict2)
-    print(f"Cosine similarity is {similarity}")
+    mPartner, wPartner = gale_shapley(men_preference1, women_preference1)
+    print(mPartner)
+    print(wPartner)
+    print("Final Stable Matches:")
+    for man, woman in mPartner.items():
+        print(f"{man} ⟶ {woman if woman else 'Unmatched'}")

@@ -2,7 +2,7 @@ def wPrefersM1OverM(women_preference, w, m, m1):
     """
     Checks if woman `w` prefers current partner `m1` over new suitor `m`.
     """
-    for preferred_man in women_preference[w]:
+    for preferred_man, _ in women_preference[w]:
         if preferred_man == m1:
             return True
         if preferred_man == m:
@@ -32,6 +32,7 @@ def gale_shapley(men_preference, women_preference):
         m = free_men.pop()  # Pick free man
         # Tuples (Women, Cosine Similarity)
         for w, cosine in men_preference[m]:
+
             # If the man already engaged, stop proposing
             if m_partner[m] is not None:
                 break
@@ -42,13 +43,13 @@ def gale_shapley(men_preference, women_preference):
                 m_partner[m] = [w, cosine, True]
             else:
                 # Woman is already engaged, check preference
-                m1 = w_partner[w]
+                m1 = w_partner[w][0]
                 if not wPrefersM1OverM(women_preference, w, m, m1):
-                    w_partner[w] = m
-                    m_partner[m] = w
+                    w_partner[w] = [m, cosine, True]
+                    m_partner[m] = [w, cosine, True]
                     m_partner[m1] = None
                     free_men.add(m1)
-
+        # print(m)
     return m_partner, w_partner
 
 
