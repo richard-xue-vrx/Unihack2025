@@ -1,4 +1,4 @@
-export type Category =   "personality" | "morals" | "interests_hobbies" | "life_goals" | "love_languages" | "lifestyle" | "politics"
+export type Category = "personality" | "morals" | "interests_hobbies" | "life_goals" | "love_languages" | "lifestyle" | "politics"
 
 interface Survey {
   sections: Section[]
@@ -18,16 +18,19 @@ export interface Question {
 }
 
 export interface Ranked extends Question {
+  type: "RANKED"
   answers: string[],
 }
 
 export interface Scale extends Question {
+  type: "SCALE"
   // We assume that the answers are always 1 to 5
   answers: string[],
 }
 
 export interface Binary extends Question {
   // We assume the answers are either 1 or 0 for Yes or No
+  type: "BINARY"
   answers: string[],
 }
 
@@ -540,6 +543,15 @@ const loveLanguageQuestion4: Scale = {
 
 export const survey: Survey = {
   sections: [
+    {
+      // UPDATE THESE TO BE REAL QEUSTIONS
+      category: "personality",
+      questions: [
+        lifegoalQuestion1,
+        lifegoalQuestion2,
+        lifegoalQuestion5,
+      ]
+    },
     {
       category: "lifestyle",
       questions: [

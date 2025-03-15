@@ -1,4 +1,3 @@
-// app/onboarding/page.tsx
 "use client"
 import React from "react";
 import { toast } from "sonner"
@@ -26,6 +25,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useUserData } from "@/context/UserDataContext";
+
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -52,6 +54,12 @@ const formSchema = z.object({
 
 export default function Onboarding() {
 
+  const router = useRouter();
+
+  const context = useUserData();
+  if (!context) return <div>Error: UserDataProvider is missing</div>;
+  const { userData, setUserData } = context;
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -66,7 +74,17 @@ export default function Onboarding() {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    const newUserData = JSON.parse(JSON.stringify(userData));
+    newUserData.email = values.email
+    newUserData.firstName = values.firstName
+    newUserData.lastName = values.lastName
+    newUserData.age = values.age
+    newUserData.gender = values.gender
+    newUserData.sexuality = values.sexuality
+
+    setUserData(newUserData);
+    // This is our first set of questions
+    router.push('/survey/personality');
   }
 
   return (

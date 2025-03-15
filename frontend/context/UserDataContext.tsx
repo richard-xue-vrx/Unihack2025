@@ -9,13 +9,15 @@ const defaultUserData: UserData = {
   age: undefined,
   gender: undefined,
   sexuality: undefined,
+  up_to_category: 0,
+  up_to_question: 0,
   category_weights: {
-    personality: undefined,
-    morals: undefined,
-    interest_hobbies: undefined,
-    life_goals: undefined,
-    love_languages: undefined,
-    lifestyle: undefined,
+    personality: 0,
+    morals: 0,
+    interest_hobbies: 0,
+    life_goals: 0,
+    love_languages: 0,
+    lifestyle: 0,
   },
   questions: [],
 };
@@ -39,6 +41,8 @@ export interface UserData {
   age: number | undefined,
   gender: string | undefined,
   sexuality: string | undefined,
+  up_to_category: number, // category index
+  up_to_question: number, // question index within category
   category_weights: {
     personality: number | undefined,
     morals: number | undefined,
