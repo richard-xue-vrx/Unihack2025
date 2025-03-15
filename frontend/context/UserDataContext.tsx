@@ -25,10 +25,10 @@ const defaultUserData: UserData = {
 
 export interface AnsweredQuestion {
   category_name: Category,
-  type: "RANKED" | "SCALE" | "BINARY"
+  question_type: "RANKED" | "SCALE" | "BINARY"
   is_self_question: boolean,
   is_similar_question: boolean,
-  question: string,
+  question_text: string,
   // SCALE  key: (same as question string), value: number (1 - 5)
   // BINARY key: (answer), value: number (1 for selected, 0 for not)
   // RANKED key: (ranked selection), value: number (normalised value from 1 - 10)

@@ -25,8 +25,8 @@ export default function RankingQuestionTemplate({ rankedQuestion, onSubmit } : {
       category_name: rankedQuestion.category_name,
       is_self_question: rankedQuestion.is_self_question,
       is_similar_question: rankedQuestion.is_similar_question,
-      type: "RANKED",
-      question: rankedQuestion.question,
+      question_type: rankedQuestion.type,
+      question_text: rankedQuestion.question,
       answers: answers
     }
 

@@ -25,8 +25,8 @@ export default function ScaleQuestionTemplate({ scaleQuestion, onSubmit } : {
       category_name: scaleQuestion.category_name,
       is_self_question: scaleQuestion.is_self_question,
       is_similar_question: scaleQuestion.is_similar_question,
-      type: "SCALE",
-      question: scaleQuestion.question,
+      question_type: scaleQuestion.type,
+      question_text: scaleQuestion.question,
       answers: answers
     }
 

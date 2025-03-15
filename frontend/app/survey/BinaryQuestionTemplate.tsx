@@ -27,8 +27,8 @@ export default function BinaryQuestionTemplate({ binaryQuestion, onSubmit } : {
       category_name: binaryQuestion.category_name,
       is_self_question: binaryQuestion.is_self_question,
       is_similar_question: binaryQuestion.is_similar_question,
-      type: "SCALE",
-      question: binaryQuestion.question,
+      question_type: binaryQuestion.type,
+      question_text: binaryQuestion.question,
       answers: answers
     }
 

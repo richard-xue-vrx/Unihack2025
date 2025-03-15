@@ -46,7 +46,7 @@ const formSchema = z.object({
     }
     return num;
   }),
-  gender: z.enum(["m", "f", "o", "nb"], {
+  gender: z.enum(["m", "f"], {
     required_error: "Gender is required.",
   }),
   sexuality: z.string()
@@ -74,15 +74,21 @@ export default function Onboarding() {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const newUserData = JSON.parse(JSON.stringify(userData));
-    newUserData.email = values.email
-    newUserData.firstName = values.firstName
-    newUserData.lastName = values.lastName
-    newUserData.age = values.age
-    newUserData.gender = values.gender
-    newUserData.sexuality = values.sexuality
+    userData.email = values.email
+    userData.first_name = values.firstName
+    userData.last_name = values.lastName
+    userData.age = values.age
+    userData.gender = values.gender
 
-    setUserData(newUserData);
+    if (values.sexuality === "heterosexual") {
+      // don't cancel us please, I just cant do conditional logic
+      if (values.gender === "m") userData.sexuality = "f";
+      if (values.gender === "f") userData.sexuality = "m";
+    } else {
+      userData.sexuality = values.gender
+    }
+
+    setUserData(userData);
     // This is our first set of questions
     router.push('/survey/personality');
   }
@@ -154,7 +160,6 @@ export default function Onboarding() {
                   <select {...field} className="border rounded-md p-2 ml-4">
                     <option value="m">Male</option>
                     <option value="f">Female</option>
-                    <option value="o">Other/Prefer not to say</option>
                   </select>
                 </FormControl>
                 <FormMessage />
@@ -177,9 +182,6 @@ export default function Onboarding() {
                     <SelectItem value="heterosexual">heterosexual</SelectItem>
                     <SelectItem value="lesbian">lesbian</SelectItem>
                     <SelectItem value="gay">gay</SelectItem>
-                    <SelectItem value="bisexual">bisexual</SelectItem>
-                    <SelectItem value="queer">queer</SelectItem>
-                    <SelectItem value="pansexual">not picky :{")"}</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormDescription>

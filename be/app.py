@@ -5,11 +5,13 @@ from person import Person
 import json
 import smtplib
 from email.message import EmailMessage
+from flask_cors import CORS
 
 app = Flask(__name__)
 USER_DATA = "user_data.json"
 matcher = Matcher()
 
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 @app.route("/", methods=["GET"])
 def home():
@@ -50,7 +52,7 @@ def surveySubmit():
             json.dump(all_data, FILE)
 
         # Create Person
-        matcher.append(Person(new_data))
+        matcher.add_person(Person(new_data))
 
     except Exception as e:
         return jsonify({"error": f"Failed to store user submission, {str(e)}"}), 500
@@ -160,12 +162,12 @@ def lonely_email(recipient_email, email_password):
         msg.set_content(f"""
                 Dear {recipient["first_name"]}, \n
 
-                Unfortunately, we were unable to find someone for you this time. This is not due to any fault of your own; 
+                Unfortunately, we were unable to find someone for you this time. This is not due to any fault of your own;
                 with the odd number of people we had, there was exactly one person who was unable to get a match. You have the
                 special status of being that one person. \n
 
                 On the bright side, you've achieved the most improbable result of everyone who participated, and you should be proud
-                at your ability to beat the odds. \n 
+                at your ability to beat the odds. \n
 
                 We hope to see you again, with a better roll of the dice!
 
