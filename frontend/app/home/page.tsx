@@ -6,7 +6,7 @@ import Link from "next/link";
 
 // TODO I reckon upon click we store this non-sensitive config data in local
 // That way they can update it if they change their mind and all other
-// secure data can be sent to the db
+// secure data can be sent to the db this means we can use it for theming too
 
 const cards = [
   {
