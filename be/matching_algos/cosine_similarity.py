@@ -19,9 +19,7 @@ def cosine_similarity(dict1, dict2):
     magnitude2 = math.sqrt(sum([x**2 for x in dict2.values()]))
     return dot_product / (magnitude1 * magnitude2) if magnitude1 * magnitude2 != 0 else 0
 
-# Example usage:
 if __name__ == "__main__":
-    # Example dictionaries of question-response pairs
     dict1 = {
         'How important is honesty to you?': 9,
         'How do you handle conflict?': 8,
