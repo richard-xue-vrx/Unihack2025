@@ -38,7 +38,7 @@ export default function Home() {
   const handleOptionClick = (response: string) => {
     setChatMessages((prev) => [...prev, response]);
     setShowOptions(false);
-    setTimeout(() => setCanProceed(true), 1000);  // Allow to proceed after response
+    setTimeout(() => setCanProceed(true), 1000);
   };
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function Home() {
         if (i === messages.length - 1) {
           clearInterval(interval);
           setTimeout(() => {
-            setShowOptions(true);  // Show options after messages
+            setShowOptions(true);
           }, 3000);
         }
       }, 2000);
