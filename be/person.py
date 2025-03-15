@@ -21,7 +21,6 @@ class Person:
         self.preferred_partners = []
 
         # User Info, Category Weights
-        self.category_weights = self.survey_json["category_weights"]
         self.questions = []
         self.process_survey()
 
