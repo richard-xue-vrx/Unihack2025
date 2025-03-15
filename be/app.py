@@ -21,10 +21,10 @@ def home():
 
 
 """
-Backend API for receiving completed Frontend Forms
-Fronted Form assumed to be proper JSON
-Stored locally under JSON File (TODO: Pickling for efficiency?)
-Returns JSON Response w/ message and status code
+    Backend API for receiving completed Frontend Forms
+    Fronted Form assumed to be proper JSON
+    Stored locally under JSON File (TODO: Pickling for efficiency?)
+    Returns JSON Response w/ message and status code
 """
 
 
@@ -58,3 +58,26 @@ def formSubmit():
         return jsonify({"error": f"Failed to store user submission, {str(e)}"}), 500
 
     return jsonify({"message": "OK"}), 200
+
+    """
+    Returns a JSON file containing leaderboard information
+    TODO: Limit to maybe top 10?
+    
+    Contains: LHS Initial, RHS Initial, Match Percentage
+    {
+        "leaderboard" : [
+            {
+                
+            },
+            {
+                
+            }...
+        ]
+    }
+   
+    """
+
+
+@app.route("/v1/leaderboard", methods=["GET"])
+def leaderboard():
+    pass
