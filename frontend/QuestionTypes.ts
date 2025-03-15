@@ -110,6 +110,18 @@ const lifestyleQuestion6: Scale = {
   ]
 }
 
+const lifestyleQuestion7: Scale = {
+  category_name: "lifestyle",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "How important is it that your partner has a similar lifestyle to you?",
+  answers: [
+    "Not important",
+    "Very important"
+  ]
+}
+
 const politicsQuestion1: Scale = {
   category_name: "politics",
   type: "SCALE",
@@ -155,6 +167,18 @@ const politicsQuestion4: Scale = {
   answers: [
     "Strongly Disagree",
     "Strongly Agree"
+  ]
+}
+
+const politicsQuestion5: Scale = {
+  category_name: "politics",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "How important is it that your partner has a similar political view to you?",
+  answers: [
+    "Not important",
+    "Very important"
   ]
 }
 
@@ -219,6 +243,18 @@ const interestsQuestion5: Scale = {
   answers: [
     "Not at all",
     "I’m always trying something new"
+  ]
+}
+
+const interestsQuestion6: Scale = {
+  category_name: "interests_hobbies",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "How important is it that your partner has similar hobbies and interests to you?",
+  answers: [
+    "Not important",
+    "Very important"
   ]
 }
 
@@ -288,6 +324,223 @@ const lifegoalQuestion5: Scale = {
   ]
 }
 
+const lifegoalQuestion6: Scale = {
+  category_name: "life_goals",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "How important is it that your partner has similar life goals to you?",
+  answers: [
+    "Not important",
+    "Very important"
+  ]
+}
+
+const moralsQuestion1: Binary = {
+  category_name: "morals",
+  type: "BINARY",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "It’s your best friends wedding and you discover their partner is cheating, do you tell them?",
+  answers: [
+    "✅ Yes",
+    "🚫 No"
+  ]
+}
+
+const moralsQuestion2: Binary = {
+  category_name: "morals",
+  type: "BINARY",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "Do you believe in the death penalty?",
+  answers: [
+    "🔪 Yes, some crimes deserve it",
+    "🚫 No, it’s inhumane"
+  ]
+}
+
+const moralsQuestion3: Ranked = {
+  category_name: "morals",
+  type: "RANKED",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "You accidentally damage someone’s car in a parking lot but no one sees. Rank your responses from most to least likely:",
+  answers: [
+    "😬 Drive off and pretend it never happened",
+    "📝 Leave a note with your contact details",
+    "🗿 Try to pin the accident on another car",
+    "⏰ Stay and wait for the owner to come back"
+  ]
+}
+
+const moralsQuestion4: Ranked = {
+  category_name: "morals",
+  type: "RANKED",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "Your partner has been accused of something serious at work, but they insist they’re innocent. If you defend them publicly and they turn out guilty, your reputation will take a huge hit. What do you do?",
+  answers: [
+    "🛡️ Defend them no matter what",
+    "💬 Support them privately but stay neutral in public",
+    "⌛ Wait for more information before doing anything",
+    "🚫 Distance yourself just in case"
+  ]
+}
+
+const moralsQuestion5: Scale = {
+  category_name: "morals",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "How important is it that your partner has a similar moral compass to you?",
+  answers: [
+    "Not important",
+    "Very important"
+  ]
+}
+
+const personalityQuestion1: Binary = {
+  category_name: "personality",
+  type: "BINARY",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "What sounds more fun?",
+  answers: [
+    "🚗 A last minute road trip",
+    "🛏️ A cozy night at home"
+  ]
+}
+
+const personalityQuestion2: Binary = {
+  category_name: "personality",
+  type: "BINARY",
+  is_self_question: true,
+  is_similar_question: false,
+  question: "What do you do at a party?",
+  answers: [
+    "🗣️ Jump into a conversations with everyone!",
+    "👥 Stick with people I know"
+  ]
+}
+
+const personalityQuestion3: Binary = {
+  category_name: "personality",
+  type: "BINARY",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "How do you typically handle disagreements?",
+  answers: [
+    "🤝 I prefer to resolve them right away",
+    "⌛ I need some time to think about it"
+  ]
+}
+
+const personalityQuestion4: Binary = {
+  category_name: "personality",
+  type: "BINARY",
+  is_self_question: false,
+  is_similar_question: false,
+  question: "Would you like your partner to be more introverted or extroverted?",
+  answers: [
+    "🗣️ Extroverted",
+    "👥 Introverted"
+  ]
+}
+
+const personalityQuestion5: Ranked = {
+  category_name: "personality",
+  type: "RANKED",
+  is_self_question: true,
+  is_similar_question: false,
+  question: "Rank these personality qualities in the best order that describes you!",
+  answers: [
+    "💪 Independence",
+    "😆 Sense of humour",
+    "🤗 Emotional Intelligence",
+    "🧠 Intelligence",
+    "🎨 Creativity"
+  ]
+}
+
+const personalityQuestion6: Ranked = {
+  category_name: "personality",
+  type: "RANKED",
+  is_self_question: true,
+  is_similar_question: false,
+  question: "Rank these personality qualities in order of importance in a partner",
+  answers: [
+    "💪 Independence",
+    "😆 Sense of humour",
+    "🤗 Emotional Intelligence",
+    "🧠 Intelligence",
+    "🎨 Creativity"
+  ]
+}
+
+const personalityQuestion7: Scale = {
+  category_name: "personality",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "How important is it that your partner has a similar personality to you?",
+  answers: [
+    "Not important",
+    "Very important"
+  ]
+}
+
+const loveLanguageQuestion1: Binary = {
+  category_name: "love_languages",
+  type: "BINARY",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "Do you prefer texting over calling?",
+  answers: [
+    "📱 Yes, texting all the way!",
+    "📞 No, I prefer calling."
+  ]
+}
+
+const loveLanguageQuestion2: Binary = {
+  category_name: "love_languages",
+  type: "BINARY",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "Are you a passenger princess or driver king?",
+  answers: [
+    "🚗 Driver King",
+    "👑 Passenger Princess"
+  ]
+}
+
+const loveLanguageQuestion3: Ranked = {
+  category_name: "love_languages",
+  type: "RANKED",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "Rank the following in order of importance to you",
+  answers: [
+    "🎁 Receiving gifts",
+    "👂 Words of affirmation",
+    "🤗 Acts of service",
+    "🤗 Quality time",
+    "🤗 Physical touch"
+  ]
+}
+
+const loveLanguageQuestion4: Scale = {
+  category_name: "love_languages",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "How important is it that your partner has a similar love language to you?",
+  answers: [
+    "Not important",
+    "Very important"
+  ]
+}
+
 export const survey: Survey = {
   sections: [
     {
@@ -307,7 +560,8 @@ export const survey: Survey = {
         lifestyleQuestion3,
         lifestyleQuestion4,
         lifestyleQuestion5,
-        lifestyleQuestion6
+        lifestyleQuestion6,
+        lifestyleQuestion7
       ]
     },
     {
@@ -316,7 +570,8 @@ export const survey: Survey = {
         politicsQuestion1,
         politicsQuestion2,
         politicsQuestion3,
-        politicsQuestion4
+        politicsQuestion4,
+        politicsQuestion5
       ]
     },
     {
@@ -326,7 +581,8 @@ export const survey: Survey = {
         interestsQuestion2,
         interestsQuestion3,
         interestsQuestion4,
-        interestsQuestion5
+        interestsQuestion5,
+        interestsQuestion6
       ]
     },
     {
@@ -336,7 +592,39 @@ export const survey: Survey = {
         lifegoalQuestion2,
         lifegoalQuestion3,
         lifegoalQuestion4,
-        lifegoalQuestion5
+        lifegoalQuestion5,
+        lifegoalQuestion6
+      ]
+    },
+    {
+      category: "morals",
+      questions: [
+        moralsQuestion1,
+        moralsQuestion2,
+        moralsQuestion3,
+        moralsQuestion4,
+        moralsQuestion5
+      ]
+    },
+    {
+      category: "personality",
+      questions: [
+        personalityQuestion1,
+        personalityQuestion2,
+        personalityQuestion3,
+        personalityQuestion4,
+        personalityQuestion5,
+        personalityQuestion6,
+        personalityQuestion7
+      ]
+    },
+    {
+      category: "love_languages",
+      questions: [
+        loveLanguageQuestion1,
+        loveLanguageQuestion2,
+        loveLanguageQuestion3,
+        loveLanguageQuestion4
       ]
     }
   ]
