@@ -98,7 +98,6 @@ def leaderboard():
 """
     Send out email to successfully matched Couple
     Email contents dependant on lover/friend match
-
 """
 
 
@@ -142,13 +141,47 @@ def craft_email(left_email, right_email, is_lover, email_password):
 
             """)
 
-        # TODO: Odd person out...
         with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
             server.starttls()  # Secure connection
             server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
             server.send_message(msg)
     except Exception as e:
         print(f"Email for {left_email}, {right_email} failed")
+
+
+def lonely_email(recipient_email, email_password):
+    SMTP_SERVER = "smtp.gmail.com"
+    SMTP_PORT = 587
+    EMAIL_ADDRESS = "unihack2025ProgChallenged@gmail.com"
+    EMAIL_PASSWORD = email_password
+
+    recipient = Matcher.get_person(recipient_email)
+
+    try:
+        msg = EmailMessage()
+        msg["From"] = EMAIL_ADDRESS
+        msg["To"] = [recipient_email]
+        msg["Subject"] = "Matching Results"
+
+        msg.set_content(f"""
+                Dear {recipient["first_name"]}, \n
+
+                Unfortunately, we were unable to find someone for you this time. This is not due to any fault of your own; 
+                with the odd number of people we had, there was exactly one person who was unable to get a match. You have the
+                special status of being that one person. \n
+
+                On the bright side, you've achieved the most improbable result of everyone who participated, and you should be proud
+                at your ability to beat the odds. \n 
+
+                We hope to see you again, with a better roll of the dice!
+
+            """)
+        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+            server.starttls()  # Secure connection
+            server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+            server.send_message(msg)
+    except Exception as e:
+        print(f"Email for lone person failed")
 
 
 @app.route("/v1/emailSend", methods=["POST"])
@@ -163,6 +196,12 @@ def send_email():
             craft_email(right_email, left_email, is_lover, EMAIL_PASSWORD)
 
         if len(matcher.persons) % 2 == 1:
-            # TODO
-            pass
+            # Odd person out
+            all_emails = set(person.get_email()
+                             for person in matcher.persons)
+            matched_emails = set(
+                email for match in matcher.matches for email in match[:2])
+
+            unmatched_email = next(iter(all_emails - matched_emails))
+            lonely_email(unmatched_email, EMAIL_PASSWORD)
     return jsonify({"message": "OK"}), 200
