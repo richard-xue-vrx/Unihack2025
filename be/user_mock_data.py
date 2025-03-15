@@ -1,4 +1,5 @@
 from person import Person
+from matcher import Matcher
 from matching_algos.cosine_similarity import cosine_similarity
 from matcher import Matcher
 
@@ -303,48 +304,38 @@ if __name__ == "__main__":
         ]
     }
 
-    john = Person(johndoe_data)
-    jane = Person(janedoe_data)
-    jhin = Person(jhindoe_data)
-    james = Person(jamesdoe_data)
-
-    matcher = Matcher()
-    matcher.add_person(john)
-    matcher.add_person(jane)
-    matcher.add_person(jhin)
-    matcher.add_person(james)
-
-    matcher.generate_matches()
-    print(matcher.matches)
+    # john = Person(johndoe_data)
+    # jane = Person(janedoe_data)
+    # jhin = Person(jhindoe_data)
 
     # print("John Doe Self Profile Vector:")
     # print(john.self_answer_weights)
 
-    # print("\nJohn Doe Preferred Partner Profile Vector:")
-    # print(john.pref_partner_answer_weights)
+    # # print("\nJohn Doe Preferred Partner Profile Vector:")
+    # # print(john.pref_partner_answer_weights)
 
-    # print("\nJane Doe Self Profile Vector:")
-    # print(jane.self_answer_weights)
+    # # print("\nJane Doe Self Profile Vector:")
+    # # print(jane.self_answer_weights)
 
-    # print("\nJane Doe Preferred Partner Profile Vector:")
-    # print(jane.pref_partner_answer_weights)
+    # # print("\nJane Doe Preferred Partner Profile Vector:")
+    # # print(jane.pref_partner_answer_weights)
 
-    # print("\nJhin Doe Self Profile Vector:")
-    # print(jhin.self_answer_weights)
+    # # print("\nJhin Doe Self Profile Vector:")
+    # # print(jhin.self_answer_weights)
 
-    # print("\nJhin Doe Preferred Partner Profile Vector:")
-    # print(jhin.pref_partner_answer_weights)
+    # # print("\nJhin Doe Preferred Partner Profile Vector:")
+    # # print(jhin.pref_partner_answer_weights)
 
-    janetoJohnsimilarity = cosine_similarity(
-        john.self_answer_weights, jane.pref_partner_answer_weights)
-    print("\nJane to John Cosine Similarity:")
-    print(janetoJohnsimilarity)
-    johnToJanesimilarity = cosine_similarity(
-        jane.self_answer_weights, john.pref_partner_answer_weights)
-    print("\nJohn to Jane Cosine Similarity:")
-    print(johnToJanesimilarity)
+    # janetoJohnsimilarity = cosine_similarity(
+    #     john.self_answer_weights, jane.pref_partner_answer_weights)
+    # print("\nJane to John Cosine Similarity:")
+    # print(janetoJohnsimilarity)
+    # johnToJanesimilarity = cosine_similarity(
+    #     jane.self_answer_weights, john.pref_partner_answer_weights)
+    # print("\nJohn to Jane Cosine Similarity:")
+    # print(johnToJanesimilarity)
 
-    jhintojamesmilarity = cosine_similarity(
-        jhin.self_answer_weights, james.pref_partner_answer_weights)
-    print("\nJihn to James Cosine Similarity:")
-    print(jhintojamesmilarity)
+    # jhintojamesmilarity = cosine_similarity(
+    #     jhin.self_answer_weights, james.pref_partner_answer_weights)
+    # print("\nJihn to James Cosine Similarity:")
+    # print(jhintojamesmilarity)
