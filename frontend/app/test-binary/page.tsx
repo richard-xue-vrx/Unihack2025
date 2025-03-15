@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import ReactPlayer from 'react-player';
 
 const binaryQuestion = {
   question: "Which situation sounds more fun?",
@@ -23,8 +24,8 @@ export default function Test() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <main className="flex flex-col items-center space-y-6">
+    <div className="flex justify-center items-center h-screen flex-col">
+      <main className="flex flex-col items-center space-y-6 w-full">
         <div className="text-2xl font-semibold text-center mb-4">
           {binaryQuestion.question}
         </div>
@@ -57,6 +58,18 @@ export default function Test() {
           </Link>
         </div>
       </main>
+      
+      {/* Subway Surfer video at the bottom */}
+      <div className="absolute bottom-0 w-full">
+        <ReactPlayer 
+          url="https://www.youtube.com/watch?v=zZ7AimPACzc"  // Replace with an actual Subway Surfer gameplay video URL
+          playing
+          loop
+          muted
+          width="100%"
+          height="400px" // Adjust the height as needed
+        />
+      </div>
     </div>
   );
 }
