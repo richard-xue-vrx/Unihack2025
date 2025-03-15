@@ -1,4 +1,4 @@
-type Category =   "personality" | "morals" | "interests_hobbies" | "life_goals" | "love_languages" | "lifestyle" | "dealbreakers"
+export type Category =   "personality" | "morals" | "interests_hobbies" | "life_goals" | "love_languages" | "lifestyle" | "dealbreakers"
 
 interface Survey {
   sections: Section[]
@@ -9,10 +9,11 @@ interface Section {
  questions: Question[]
 }
 
-interface Question {
+export interface Question {
   category_name: Category,
   type: "RANKED" | "SCALE" | "BINARY"
   is_self_question: boolean,
+  is_similar_question: boolean,
   question: string
 }
 
@@ -33,6 +34,7 @@ const exampleRankedQuestion: Ranked = {
   category_name: "interests_hobbies",
   type: "RANKED",
   is_self_question: true,
+  is_similar_question: true,
   question: "On your free day you're most likely to?",
   answers: [
     "📺 Binge-watch a new show",
@@ -46,6 +48,7 @@ const exampleRankedQuestion2: Ranked = {
   category_name: "interests_hobbies",
   type: "RANKED",
   is_self_question: true,
+  is_similar_question: true,
   question: "Which of these describes your dream vacation?",
   answers: [
     "🏝 Chilling on a beach",
@@ -59,6 +62,7 @@ const exampleBinaryQuestion: Binary = {
   category_name: "personality",
   type: "BINARY",
   is_self_question: true,
+  is_similar_question: true,
   question: "Which sounds more fun?",
   answers: [
     "A last minute road trip",
@@ -69,6 +73,7 @@ const exampleBinaryQuestion2: Binary = {
   category_name: "personality",
   type: "BINARY",
   is_self_question: true,
+  is_similar_question: true,
   question: "What do you do at a party?",
   answers: [
     "Jump into a conversations with everyone!",
