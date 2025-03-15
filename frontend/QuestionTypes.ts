@@ -388,7 +388,21 @@ const moralsQuestion4: Ranked = {
   ]
 }
 
-const moralsQuestion5: Scale = {
+const moralsQuestion5: Ranked = {
+  category_name: "morals",
+  type: "RANKED",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "A co-worker is unfairly blamed for a mistake that was actually yours. Rank your responses from most to least likely:",
+  answers: [
+      "🤝 Own up immediately, no hesitation",
+      "🛑 Get defensive if the co-worker starts blaming you instead",
+      "⚠️ Only confess if they start facing real consequences",
+      "🤫 Stay quiet and move on"
+  ]
+}
+
+const moralsQuestion6: Scale = {
   category_name: "morals",
   type: "SCALE",
   is_self_question: true,
@@ -603,7 +617,8 @@ export const survey: Survey = {
         moralsQuestion2,
         moralsQuestion3,
         moralsQuestion4,
-        moralsQuestion5
+        moralsQuestion5,
+        moralsQuestion6
       ]
     },
     {
