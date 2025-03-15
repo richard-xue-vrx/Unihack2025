@@ -516,19 +516,7 @@ const loveLanguageQuestion1: Binary = {
   ]
 }
 
-const loveLanguageQuestion2: Binary = {
-  category_name: "love_languages",
-  type: "BINARY",
-  is_self_question: true,
-  is_similar_question: true,
-  question: "Are you a passenger princess or driver king?",
-  answers: [
-    "🚗 Driver King",
-    "👑 Passenger Princess"
-  ]
-}
-
-const loveLanguageQuestion3: Ranked = {
+const loveLanguageQuestion2: Ranked = {
   category_name: "love_languages",
   type: "RANKED",
   is_self_question: true,
@@ -543,7 +531,7 @@ const loveLanguageQuestion3: Ranked = {
   ]
 }
 
-const loveLanguageQuestion4: Scale = {
+const loveLanguageQuestion3: Scale = {
   category_name: "love_languages",
   type: "SCALE",
   is_self_question: true,
@@ -639,7 +627,6 @@ export const survey: Survey = {
         loveLanguageQuestion1,
         loveLanguageQuestion2,
         loveLanguageQuestion3,
-        loveLanguageQuestion4
       ]
     }
   ]
