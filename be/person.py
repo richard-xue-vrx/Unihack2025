@@ -93,7 +93,8 @@ class BinaryQuestion (Question):
     def __init__(self, question_json):
         super().__init__(question_json)
         # so that it has same wieght as a ranked question (which has 4 dimensions)
-        self.question_type_weight = math.sqrt(2)
+        # scale to /10
+        self.question_type_weight = math.sqrt(2) * 10
 
     def encode(self, category_weights):
         """
@@ -149,7 +150,8 @@ class ScaleQuestion (Question):
     def __init__(self, question_json):
         super().__init__(question_json)
         # so that it has same wieght as a ranked question (which has 4 dimensions)
-        self.question_type_weight = 2
+        # scale to 10
+        self.question_type_weight = 2 * 2
 
     def encode(self, category_weights):
         """
