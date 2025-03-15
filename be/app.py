@@ -6,10 +6,13 @@ import json
 import smtplib
 from email.message import EmailMessage
 from flask_cors import CORS
+import threading
 
 app = Flask(__name__)
 USER_DATA = "user_data.json"
 matcher = Matcher()
+data_lock = threading.Lock()
+
 
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
@@ -38,21 +41,22 @@ def surveySubmit():
 
     try:
         # Safety check to see if previous data exists
-        try:
-            with open(USER_DATA, "r") as FILE:
-                all_data = json.load(FILE)
-        except:
-            all_data = {}
+        with data_lock:
+            try:
+                with open(USER_DATA, "r") as FILE:
+                    all_data = json.load(FILE)
+            except:
+                all_data = {}
 
-        # Store data under unique email
-        all_data[user_email] = new_data
+            # Store data under unique email
+            all_data[user_email] = new_data
 
-        # Write again w/ new data
-        with open(USER_DATA, "w") as FILE:
-            json.dump(all_data, FILE)
+            # Write again w/ new data
+            with open(USER_DATA, "w") as FILE:
+                json.dump(all_data, FILE)
 
-        # Create Person
-        matcher.add_person(Person(new_data))
+            # Create Person
+            matcher.add_person(Person(new_data))
 
     except Exception as e:
         return jsonify({"error": f"Failed to store user submission, {str(e)}"}), 500
