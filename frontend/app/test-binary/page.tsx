@@ -35,7 +35,7 @@ export default function Test() {
               onClick={() => handleAnswerClick(answer)}
               className={`w-1/2 h-40 text-lg flex justify-center items-center p-4 rounded-lg border cursor-pointer transition ${
                 selectedAnswer === answer
-                  ? "bg-blue-500 text-white" // Selected state
+                  ? "bg-blue-500 text-white"
                   : "bg-white text-black hover:bg-gray-100"
               }`}
               style={{
