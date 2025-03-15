@@ -14,6 +14,7 @@ const defaultUserData: UserData = {
   category_weights: {
     personality: 0,
     morals: 0,
+    politics: 0,
     interest_hobbies: 0,
     life_goals: 0,
     love_languages: 0,
@@ -46,6 +47,7 @@ export interface UserData {
   category_weights: {
     personality: number | undefined,
     morals: number | undefined,
+    politics: number | undefined,
     interest_hobbies: number | undefined,
     life_goals: number | undefined,
     love_languages: number | undefined,

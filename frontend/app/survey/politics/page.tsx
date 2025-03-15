@@ -14,6 +14,7 @@ const addQuestionAnswer = (answeredQuestion: AnsweredQuestion, context: UserData
   const newUserData = JSON.parse(JSON.stringify(userData));
   newUserData.questions.push(answeredQuestion);
   setUserData(newUserData);
+  return newUserData;
 }
 
 export default function SurveyPolitics() {
@@ -22,22 +23,23 @@ export default function SurveyPolitics() {
   const context = useUserData();
   if (!context) return <div>Error: UserDataProvider is missing</div>;
   const { userData, setUserData } = context;
+
   const [currentQuestion, setCurrentQuestion] = React.useState(survey.sections[userData.up_to_category].questions[userData.up_to_question]);
 
   const onSubmit = (userAnswer: AnsweredQuestion) => {
-    addQuestionAnswer(userAnswer, context);
-    const curQuestionIndex = userData.up_to_question;
-    const curCategoryIndex = userData.up_to_category;
+    const newUserData = addQuestionAnswer(userAnswer, context);
+    const curQuestionIndex = newUserData.up_to_question;
+    const curCategoryIndex = newUserData.up_to_category;
 
     if (curQuestionIndex + 1 >= survey.sections[curCategoryIndex].questions.length) {
-      userData.up_to_question = 0;
-      userData.up_to_category = userData.up_to_category + 1;
-      setUserData(userData);
-      router.push(`/survey/${survey.sections[userData.up_to_category].category}`)
+      newUserData.up_to_question = 0;
+      newUserData.up_to_category = newUserData.up_to_category + 1;
+      setUserData(newUserData);
+      router.push(`/survey/${survey.sections[newUserData.up_to_category].category}`)
     } else {
-      userData.up_to_question = userData.up_to_question + 1;
-      setUserData(userData);
-      setCurrentQuestion(survey.sections[userData.up_to_category].questions[userData.up_to_question])
+      newUserData.up_to_question = newUserData.up_to_question + 1;
+      setUserData(newUserData);
+      setCurrentQuestion(survey.sections[newUserData.up_to_category].questions[newUserData.up_to_question]);
     }
   }
 
