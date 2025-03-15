@@ -100,8 +100,84 @@ janedoe_data = {
             "is_similar_question" : False,
             "question_text": "What sounds more fun?",
             "answers" : [
-                {"A last minute road trip" : 0},
-                {"A cozy night at home" : 1}
+                {"A last minute road trip" : 1},
+                {"A cozy night at home" : 0}
+            ]
+        }, 
+        {
+            "category_name" : "personality",
+            "question_type" : "BINARY",
+            "is_self_question" : False,
+            "is_similar_question" : False,
+            "question_text": "How do you feel about last-minute plans?",
+            "answers" : [
+                {"Love them!" : 0},
+                {"Not a fan - I like plans" : 1}
+            ]
+        }, 
+        {
+            "category_name" : "interest_hobbies",
+            "question_type" : "RANKED",
+            "is_self_question" : True,
+            "is_similar_question" : True,
+            "question_text": "If you had a free day, what would you most likely do?",
+            "answers" : [
+                {"Binge-watch a new show" : 9},
+                {"Hit the gym or go for a hike" : 10},
+                {"Read a book or listen to a podcast" : 2},
+                {"Go out and explore the city" : 3}
+            ]
+        },
+        {
+            "category_name" : "life_goals",
+            "question_type" : "SCALE",
+            "is_self_question" : True,
+            "is_similar_question" : True,
+            "question_text": "How ambitious are you? (1-10)  ",
+            "answers" : [
+                {"How ambitious are you?" : 2}
+            ]
+        },
+        {
+            "category_name" : "morals",
+            "question_type" : "BINARY",
+            "is_self_question" : True,
+            "is_similar_question" : True,
+            "question_text": "Best friends wedding and you discover their partner is cheating, do you tell them?",
+            "answers" : [
+                {"Yes" : 0},
+                {"No" : 1}
+            ]
+        }
+    ]
+}
+
+
+jhindoe_data = {
+    "email" : "jhindoe@email.com",
+    "first_name" : "jhin",
+    "last_name" : "doe",
+    "age" : 21, 
+    "gender": "f",
+    "sexuality" : "m",
+    "category_weights" : {
+        "personality" : 2,
+        "morals": 1,
+        "interest_hobbies": 5,
+        "life_goals": 1,
+        "love_languages": 4,
+        "lifestyle": 3
+    },
+    "questions" :  [
+        {
+            "category_name" : "personality",
+            "question_type" : "BINARY",
+            "is_self_question" : True,
+            "is_similar_question" : False,
+            "question_text": "What sounds more fun?",
+            "answers" : [
+                {"A last minute road trip" : 1},
+                {"A cozy night at home" : 0}
             ]
         }, 
         {
@@ -155,6 +231,7 @@ janedoe_data = {
 
 john = Person(johndoe_data)
 jane = Person(janedoe_data)
+jhin = Person(jhindoe_data)
 
 print("John Doe Self Profile Vector:")
 print(john.self_answer_weights)
@@ -167,6 +244,12 @@ print(jane.self_answer_weights)
 
 print("\nJane Doe Preferred Partner Profile Vector:")
 print(jane.pref_partner_answer_weights)
+
+print("\nJhin Doe Self Profile Vector:")
+print(jhin.self_answer_weights)
+
+print("\nJhin Doe Preferred Partner Profile Vector:")
+print(jhin.pref_partner_answer_weights)
 
 janetoJohnsimilarity = cosine_similarity(john.self_answer_weights, jane.pref_partner_answer_weights)
 print("\nJane to John Cosine Similarity:")
