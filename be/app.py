@@ -59,23 +59,24 @@ def formSubmit():
 
     return jsonify({"message": "OK"}), 200
 
-    """
-    Returns a JSON file containing leaderboard information
-    TODO: Limit to maybe top 10?
-    
-    Contains: LHS Initial, RHS Initial, Match Percentage
-    {
-        "leaderboard" : [
-            {
-                
-            },
-            {
-                
-            }...
-        ]
-    }
-   
-    """
+
+"""
+Returns a JSON file containing leaderboard information
+TODO: Limit to maybe top 10?
+
+Contains: LHS Initial, RHS Initial, Match Percentage
+{
+    "leaderboard" : [
+        {
+            
+        },
+        {
+            
+        }...
+    ]
+}
+
+"""
 
 
 @app.route("/v1/leaderboard", methods=["GET"])
