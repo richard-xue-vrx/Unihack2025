@@ -23,9 +23,9 @@ def gale_shapley(men_preference, women_preference):
     men = list(men_preference.keys())
     women = list(women_preference.keys())
 
-    w_partner = {w: None for w in women}  # Woman's current partner
-    m_partner = {m: None for m in men}    # Man's current partner
-    free_men = set(men)  # Men who are still free
+    w_partner = {w: None for w in women}
+    m_partner = {m: None for m in men}
+    free_men = set(men)
 
     while free_men:
         m = free_men.pop()  # Pick free man
