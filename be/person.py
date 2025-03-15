@@ -55,7 +55,7 @@ class Person:
         for question in self.questions:
             if question.is_self_question:
                 self_answer_weights.update(question.encode(self.category_weights))
-            elif not question.is_self_question or self.is_similar_question:
+            if not question.is_self_question or question.is_similar_question:
                 pref_partner_answer_weights.update(question.encode(self.category_weights))
 
         return (self_answer_weights, pref_partner_answer_weights)
@@ -64,7 +64,6 @@ class Person:
 class QuestionFactory:
 
     def __init__(self):
-
         pass
 
     def create_question(self, question_json):
@@ -84,6 +83,7 @@ class Question:
         self.category_name = question_json.get("category_name", None)
         self.question_type = question_json.get("question_type", "").upper()
         self.is_self_question = question_json.get("is_self_question", True)
+        self.is_similar_question = question_json.get("is_similar_question", True)
         self.question_text = question_json.get("question_text", "")
         self.answers = question_json.get("answers", [])
 
@@ -108,11 +108,12 @@ class BinaryQuestion (Question):
 
         for answer in self.answers:
             for answer_text, value in answer.items():
+                encoded_key = f"{self.question_text} - {answer_text}"
                 if value == 1:
                     value *= category_weight * self.question_type_weight
-                    answer_weights[answer_text] = value
+                    answer_weights[encoded_key] = value
                 elif value == 0:
-                    answer_weights[answer_text] = 0
+                    answer_weights[encoded_key] = 0
 
         return answer_weights
 
