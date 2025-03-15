@@ -81,6 +81,82 @@ const exampleBinaryQuestion2: Binary = {
   ]
 }
 
+const lifestyleQuestion1: Binary = {
+  category_name: "lifestyle",
+  type: "BINARY",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "Which of these are you?",
+  answers: [
+    "🌞 Early bird",
+    "🌙 Night owl"
+  ]
+}
+
+const lifestyleQuestion2: Binary = {
+  category_name: "lifestyle",
+  type: "BINARY",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "How clean do you keep your space?",
+  answers: [
+    "✨ Spotless",
+    "🌀 Organised chaos"
+  ]
+}
+
+const lifestyleQuestion3: Binary = {
+  category_name: "lifestyle",
+  type: "RANKED",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "On the weekend you're more likely to?",
+  answers: [
+    "😴 Sleeping in & doing nothing",
+    "✅ Being productive & crossing off tasks",
+    "🎭 Going out & having fun",
+    "🎲 Random spontaneous plans"
+  ]
+}
+
+const lifestyleQuestion4: Binary = {
+  category_name: "lifestyle",
+  type: "RANKED",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "On the weekend you're more likely to?",
+  answers: [
+    "🍽️ Dinner at a cozy restaurant",
+    "🎳 A fun activity (e.g., mini-golf, bowling)",
+    "☕ Coffee at a cute café",
+    "🌳 A scenic walk in the park"
+  ]
+} 
+
+const lifestyleQuestion5: Binary = {
+  category_name: "lifestyle",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "On a scale of 1 to 5, how often do you exercise?",
+  answers: [
+    "🛋️ Never",
+    "🏋️‍♀ Daily, without fail!"
+  ]
+} 
+
+const lifestyleQuestion6: Binary = {
+  category_name: "lifestyle",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "On a scale of 1 to 5, how much do you love traveling?",
+  answers: [
+    "🏠 I prefer staying home",
+    "✈ I’m always planning my next trip"
+  ]
+} 
+
 export const survey: Survey = {
   sections: [
     {
@@ -97,5 +173,16 @@ export const survey: Survey = {
         exampleBinaryQuestion2
       ]
     },
+    {
+      category: "lifestyle",
+      questions: [
+        lifestyleQuestion1,
+        lifestyleQuestion2,
+        lifestyleQuestion3,
+        lifestyleQuestion4,
+        lifestyleQuestion5,
+        lifestyleQuestion6
+      ]
+    }
   ]
 }
