@@ -47,9 +47,15 @@ export default function Test() {
             </div>
           ))}
         </div>
-        <Link href='/home' className="ml-auto underline underline-offset-2 opacity-60 hover:opacity-100 transition">
-          Next →
-        </Link>
+        <div className="mt-6">
+          <Link
+            href="/home"
+            className={`ml-auto underline underline-offset-2 transition ${selectedAnswer ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+            style={{ userSelect: 'none' }}
+          >
+            Next →
+          </Link>
+        </div>
       </main>
     </div>
   );
