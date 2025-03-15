@@ -1,3 +1,6 @@
+import collections
+
+
 def wPrefersM1OverM(women_preference, w, m, m1):
     """
     Checks if woman `w` prefers current partner `m1` over new suitor `m`.
@@ -21,12 +24,15 @@ def gale_shapley(men_preference, women_preference):
     Returns:
     dict: Stable matching where each man is mapped to a woman (or None if unmatched), with Cosine
     """
-    men = list(men_preference.keys())
-    women = list(women_preference.keys())
 
-    w_partner = {w: None for w in women}
-    m_partner = {m: None for m in men}
-    free_men = set(men)
+    w_partner = collections.defaultdict(lambda: None)
+    for w in women_preference.keys():
+        w_partner[w] = None
+    m_partner = collections.defaultdict(lambda: None)
+    for m in men_preference.keys():
+        m_partner[m] = None
+
+    free_men = set(men_preference.keys())
 
     while free_men:
         m = free_men.pop()  # Pick free man
@@ -39,54 +45,53 @@ def gale_shapley(men_preference, women_preference):
 
             if w_partner[w] is None:
                 # If woman free, they get engaged
-                w_partner[w] = [m, cosine, True]
-                m_partner[m] = [w, cosine, True]
+                w_partner[w] = [m, cosine, True if cosine > 0 else False]
+                m_partner[m] = [w, cosine, True if cosine > 0 else False]
             else:
                 # Woman is already engaged, check preference
                 m1 = w_partner[w][0]
                 if not wPrefersM1OverM(women_preference, w, m, m1):
-                    w_partner[w] = [m, cosine, True]
-                    m_partner[m] = [w, cosine, True]
+                    w_partner[w] = [m, cosine, True if cosine > 0 else False]
+                    m_partner[m] = [w, cosine, True if cosine > 0 else False]
                     m_partner[m1] = None
                     free_men.add(m1)
-        # print(m)
+
     return m_partner, w_partner
 
+    # if __name__ == "__main__":
+    #     men_preference1 = {
+    #         "a": ["f", "h", "g", "e"],
+    #         "b": ["g", "e", "h", "f"],
+    #         "c": ["h", "e", "f", "g"],
+    #         "d": ["e", "f", "g", "h"],
+    #         "e": ["h", "f", "g", "e"]
+    #     }
 
-# if __name__ == "__main__":
-#     men_preference1 = {
-#         "a": ["f", "h", "g", "e"],
-#         "b": ["g", "e", "h", "f"],
-#         "c": ["h", "e", "f", "g"],
-#         "d": ["e", "f", "g", "h"],
-#         "e": ["h", "f", "g", "e"]
-#     }
+    #     women_preference1 = {
+    #         "e": ["b", "a", "c", "d", "e"],
+    #         "f": ["c", "b", "d", "e", "a"],
+    #         "g": ["a", "e", "b", "c", "d"],
+    #         "h": ["d", "e", "a", "b", "c"]
+    #     }
 
-#     women_preference1 = {
-#         "e": ["b", "a", "c", "d", "e"],
-#         "f": ["c", "b", "d", "e", "a"],
-#         "g": ["a", "e", "b", "c", "d"],
-#         "h": ["d", "e", "a", "b", "c"]
-#     }
+    #     men_preference2 = {
+    #         "A": ["H", "G", "F", "E"],
+    #         "B": ["F", "E", "G", "H"],
+    #         "C": ["E", "F", "G", "H"],
+    #         "D": ["E", "F", "G", "H"]
+    #     }
 
-#     men_preference2 = {
-#         "A": ["H", "G", "F", "E"],
-#         "B": ["F", "E", "G", "H"],
-#         "C": ["E", "F", "G", "H"],
-#         "D": ["E", "F", "G", "H"]
-#     }
+    #     women_preference2 = {
+    #         "E": ["A", "B", "C", "D"],
+    #         "F": ["A", "B", "C", "D"],
+    #         "G": ["A", "B", "C", "D"],
+    #         "H": ["A", "B", "C", "D"]
+    #     }
 
-#     women_preference2 = {
-#         "E": ["A", "B", "C", "D"],
-#         "F": ["A", "B", "C", "D"],
-#         "G": ["A", "B", "C", "D"],
-#         "H": ["A", "B", "C", "D"]
-#     }
+    #     mPartner, wPartner = gale_shapley(men_preference1, women_preference1)
+    #     print(mPartner)
+    #     print(wPartner)
 
-#     mPartner, wPartner = gale_shapley(men_preference1, women_preference1)
-#     print(mPartner)
-#     print(wPartner)
-
-#     print("Final Stable Matches:")
-#     for man, woman in mPartner.items():
-#         print(f"{man} ⟶ {woman if woman else 'Unmatched'}")
+    #     print("Final Stable Matches:")
+    #     for man, woman in mPartner.items():
+    #         print(f"{man} ⟶ {woman if woman else 'Unmatched'}")

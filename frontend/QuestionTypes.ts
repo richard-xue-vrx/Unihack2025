@@ -1,4 +1,4 @@
-export type Category =   "personality" | "morals" | "interests_hobbies" | "life_goals" | "love_languages" | "lifestyle" | "dealbreakers"
+export type Category =   "personality" | "morals" | "interests_hobbies" | "life_goals" | "love_languages" | "lifestyle" | "politics"
 
 interface Survey {
   sections: Section[]
@@ -25,63 +25,13 @@ export interface Ranked extends Question {
 export interface Scale extends Question {
   type: "SCALE"
   // We assume that the answers are always 1 to 5
+  answers: string[],
 }
 
 export interface Binary extends Question {
   // We assume the answers are either 1 or 0 for Yes or No
   type: "BINARY"
   answers: string[],
-}
-
-const exampleRankedQuestion: Ranked = {
-  category_name: "interests_hobbies",
-  type: "RANKED",
-  is_self_question: true,
-  is_similar_question: true,
-  question: "On your free day you're most likely to?",
-  answers: [
-    "📺 Binge-watch a new show",
-    "🏋️‍♂️ Hit the gym or go for a hike",
-    "📖 Read a book or listen to a podcast",
-    "🚀 Go out and explore the city"
-  ]
-}
-
-const exampleRankedQuestion2: Ranked = {
-  category_name: "interests_hobbies",
-  type: "RANKED",
-  is_self_question: true,
-  is_similar_question: true,
-  question: "Which of these describes your dream vacation?",
-  answers: [
-    "🏝 Chilling on a beach",
-    "🏰 Exploring historical sites",
-    "🏔 Going on an outdoor adventure",
-    "🏙 Partying in a big city"
-  ]
-}
-
-const exampleBinaryQuestion: Binary = {
-  category_name: "personality",
-  type: "BINARY",
-  is_self_question: true,
-  is_similar_question: true,
-  question: "Which sounds more fun?",
-  answers: [
-    "A last minute road trip",
-    "A cozy night at home"
-  ]
-}
-const exampleBinaryQuestion2: Binary = {
-  category_name: "personality",
-  type: "BINARY",
-  is_self_question: true,
-  is_similar_question: true,
-  question: "What do you do at a party?",
-  answers: [
-    "Jump into a conversations with everyone!",
-    "Stick with people I know"
-  ]
 }
 
 const lifestyleQuestion1: Binary = {
@@ -108,9 +58,9 @@ const lifestyleQuestion2: Binary = {
   ]
 }
 
-const lifestyleQuestion3: Binary = {
+const lifestyleQuestion3: Ranked = {
   category_name: "lifestyle",
-  type: "BINARY",
+  type: "RANKED",
   is_self_question: true,
   is_similar_question: true,
   question: "On the weekend you're more likely to?",
@@ -122,12 +72,12 @@ const lifestyleQuestion3: Binary = {
   ]
 }
 
-const lifestyleQuestion4: Binary = {
+const lifestyleQuestion4: Ranked = {
   category_name: "lifestyle",
-  type: "BINARY",
+  type: "RANKED",
   is_self_question: true,
   is_similar_question: true,
-  question: "On the weekend you're more likely to?",
+  question: "On a date you're more likely to?",
   answers: [
     "🍽️ Dinner at a cozy restaurant",
     "🎳 A fun activity (e.g., mini-golf, bowling)",
@@ -136,9 +86,9 @@ const lifestyleQuestion4: Binary = {
   ]
 }
 
-const lifestyleQuestion5: Binary = {
+const lifestyleQuestion5: Scale = {
   category_name: "lifestyle",
-  type: "BINARY",
+  type: "SCALE",
   is_self_question: true,
   is_similar_question: true,
   question: "On a scale of 1 to 5, how often do you exercise?",
@@ -148,9 +98,9 @@ const lifestyleQuestion5: Binary = {
   ]
 }
 
-const lifestyleQuestion6: Binary = {
+const lifestyleQuestion6: Scale = {
   category_name: "lifestyle",
-  type: "BINARY",
+  type: "SCALE",
   is_self_question: true,
   is_similar_question: true,
   question: "On a scale of 1 to 5, how much do you love traveling?",
@@ -160,20 +110,192 @@ const lifestyleQuestion6: Binary = {
   ]
 }
 
+const politicsQuestion1: Scale = {
+  category_name: "politics",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "I think wealth should be shared equally like giant pizza slices - no one should get all yummy bits while others are left with just the crust",
+  answers: [
+    "Strongly Disagree",
+    "Strongly Agree"
+  ]
+}
+
+const politicsQuestion2: Scale = {
+  category_name: "politics",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "I think the free economy will always correct itself without any government help - its like magic!",
+  answers: [
+    "Strongly Disagree",
+    "Strongly Agree"
+  ]
+}
+
+const politicsQuestion3: Scale = {
+  category_name: "politics",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "In think in turbulent times, a decisive government that may restrict some personal freedoms is necessary to keep society on track",
+  answers: [
+    "Strongly Disagree",
+    "Strongly Agree"
+  ]
+}
+
+const politicsQuestion4: Scale = {
+  category_name: "politics",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "I think preserving individual freedom and free speech is more important - even if that means quite a bit of societal chaos",
+  answers: [
+    "Strongly Disagree",
+    "Strongly Agree"
+  ]
+}
+
+const interestsQuestion1: Binary = {
+  category_name: "interests_hobbies",
+  type: "BINARY",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "Are you into video games?",
+  answers: [
+    "🎮 Yes, I love gaming!",
+    "🌙 No, not my thing"
+  ]
+}
+
+const interestsQuestion2: Binary = {
+  category_name: "interests_hobbies",
+  type: "BINARY",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "Do you prefer solo hobbies over group activities?",
+  answers: [
+    "🎨 Yes, I enjoy hobbies alone.",
+    "🤸‍♂️ No, I love group activities!"
+  ]
+}
+
+const interestsQuestion3: Ranked = {
+  category_name: "interests_hobbies",
+  type: "RANKED",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "On your free day you're most likely to?",
+  answers: [
+    "📺 Binge-watch a new show",
+    "🏋️‍♂️ Hit the gym or go for a hike",
+    "📖 Read a book or listen to a podcast",
+    "🚀 Go out and explore the city"
+  ]
+}
+
+const interestsQuestion4: Ranked = {
+  category_name: "interests_hobbies",
+  type: "RANKED",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "Rank your dream vacation",
+  answers: [
+    "🏝 Chilling on a beach",
+    "🏰 Exploring historical sites",
+    "🏔 Going on an outdoor adventure",
+    "🏙 Partying in a big city"
+  ]
+}
+
+const interestsQuestion5: Scale = {
+  category_name: "interests_hobbies",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "On a scale of 1 to 5, how much do you love trying new hobbies?",
+  answers: [
+    "Not at all",
+    "I’m always trying something new"
+  ]
+}
+
+const lifegoalQuestion1: Ranked = {
+  category_name: "life_goals",
+  type: "RANKED",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "Rank your ideal retirement plan",
+  answers: [
+    "🧑 Living off the land",
+    "🏠 Suburban House",
+    "☕ Opening your own cafe",
+    "🏙️ City Apartment"
+  ]
+}
+
+const lifegoalQuestion2: Ranked = {
+  category_name: "life_goals",
+  type: "RANKED",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "Rank your future family preferences",
+  answers: [
+    "👶 Kids are a must",
+    "🐶 Fur babies only",
+    "🚫 Just us, no kids or pets",
+    "🤔 Still figuring it out"
+  ]
+}
+
+const lifegoalQuestion3: Ranked = {
+  category_name: "life_goals",
+  type: "RANKED",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "Rank in order of how you prioritise your financial goals",
+  answers: [
+    "🏦 Saving & investing for the future",
+    "✈️ Spending on experiences (travel, events)",
+    "🤑 Living in the moment, enjoying life",
+    "💰 Prioritizing security (buying a home)"
+  ]
+}
+
+const lifegoalQuestion4: Scale = {
+  category_name: "life_goals",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: false,
+  question: "How locked in are you?",
+  answers: [
+    "🎮 I'm geeking",
+    "🔒 I'm locked in"
+  ]
+}
+
+const lifegoalQuestion5: Scale = {
+  category_name: "life_goals",
+  type: "SCALE",
+  is_self_question: false,
+  is_similar_question: false,
+  question: "How locked is your ideal partner?",
+  answers: [
+    "🎮 I'm geeking",
+    "🔒 I'm locked in"
+  ]
+}
+
 export const survey: Survey = {
   sections: [
     {
+      // UPDATE THESE TO BE REAL QEUSTIONS
       category: "personality",
       questions: [
-        exampleRankedQuestion,
-        exampleRankedQuestion2
-      ]
-    },
-    {
-      category: "interests_hobbies",
-      questions: [
-        exampleRankedQuestion,
-        exampleRankedQuestion2
+        lifegoalQuestion1,
+        lifegoalQuestion2,
       ]
     },
     {
@@ -185,6 +307,35 @@ export const survey: Survey = {
         lifestyleQuestion4,
         lifestyleQuestion5,
         lifestyleQuestion6
+      ]
+    },
+    {
+      category: "politics",
+      questions: [
+        politicsQuestion1,
+        politicsQuestion2,
+        politicsQuestion3,
+        politicsQuestion4
+      ]
+    },
+    {
+      category: "interests_hobbies",
+      questions: [
+        interestsQuestion1,
+        interestsQuestion2,
+        interestsQuestion3,
+        interestsQuestion4,
+        interestsQuestion5
+      ]
+    },
+    {
+      category: "life_goals",
+      questions: [
+        lifegoalQuestion1,
+        lifegoalQuestion2,
+        lifegoalQuestion3,
+        lifegoalQuestion4,
+        lifegoalQuestion5
       ]
     }
   ]

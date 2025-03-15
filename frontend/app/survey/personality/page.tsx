@@ -3,9 +3,10 @@ import React from "react";
 
 import { AnsweredQuestion, UserDataContextType, useUserData } from "@/context/UserDataContext";
 import RankingQuestionTemplate from "../RankingQuestionTemplate";
-import { Ranked, survey } from "@/QuestionTypes";
+import { Ranked, Scale, survey } from "@/QuestionTypes";
 
 import { useRouter } from "next/navigation";
+import ScaleQuestionTemplate from "../ScaleQuestionTemplate";
 
 const addQuestionAnswer = (answeredQuestion: AnsweredQuestion, context: UserDataContextType) => {
   const { userData, setUserData } = context;
@@ -51,7 +52,7 @@ export default function SurveyPersonality() {
               (currentQuestion.type === "RANKED")
             ? <RankingQuestionTemplate rankedQuestion={currentQuestion as Ranked} onSubmit={onSubmit}/>
             : (currentQuestion.type === "SCALE")
-            ? <RankingQuestionTemplate rankedQuestion={currentQuestion as Ranked} onSubmit={onSubmit}/>
+            ? <ScaleQuestionTemplate scaleQuestion={currentQuestion as Scale} onSubmit={onSubmit}/>
             : null
           }
       </main>

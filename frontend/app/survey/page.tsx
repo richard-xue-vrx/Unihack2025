@@ -2,7 +2,7 @@
 import React from "react";
 import Link from "next/link";
 
-import { AnsweredQuestion, UserDataContextType, useUserData } from "@/context/UserDataContext";
+import { AnsweredQuestion, UserData, UserDataContextType, useUserData } from "@/context/UserDataContext";
 import { Button } from "@/components/ui/button";
 
 const addQuestionAnswer = (answeredQuestion: AnsweredQuestion, context: UserDataContextType) => {
@@ -28,7 +28,7 @@ export default function Survey() {
         answer1: 1,
         answer2: 0,
       }]
-    }, context);
+    }, context)
   }
 
   return (

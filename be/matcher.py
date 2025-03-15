@@ -2,6 +2,28 @@ from matching_algos.cosine_similarity import cosine_similarity
 from matching_algos.gale_shapley import gale_shapley
 
 
+def split_groups(preference_list):
+    """
+    Dynamically splits participants into two groups.
+    """
+    participants = list(preference_list.keys())
+    mid = len(participants) // 2
+    group_A = set(participants[:mid])
+    group_B = set(participants[mid:])
+    return group_A, group_B
+
+
+def filter_preferences(preference_list, group_A, group_B):
+    """
+    Ensures that preferences are directed at the opposite group.
+    """
+    filtered = {}
+    for person, prefs in preference_list.items():
+        filtered[person] = [(p, score) for p, score in prefs if p in (
+            group_B if person in group_A else group_A)]
+    return filtered
+
+
 class Matcher:
 
     def __init__(self):
@@ -16,12 +38,10 @@ class Matcher:
         return self.persons[email]
 
     def generate_matches(self):
-
-        # Generate preferences in decreasing order
-        # TODO Gender Matches
-        # M F
-        # M M
-        # F F
+        """
+            Generate matches in order of preference for 
+            all preferred genders and sexual preferences supported
+        """
 
         male_male = []
         female_female = []
@@ -41,74 +61,80 @@ class Matcher:
         # Preferences are ordered now, find matches
 
         # M->F and F->M
-        male_female_prefs = self.generate_group_matches(
+        male_female_prefs = self.generate_group_preferences(
             male_female, female_male)
-        female_male_prefs = self.generate_group_matches(
+        female_male_prefs = self.generate_group_preferences(
             female_male, male_female)
 
-        straight_matches = gale_shapley(male_female_prefs, female_male_prefs)
-        for match, (other, is_lover, cosine) in straight_matches.items():
+        men_partners, _ = gale_shapley(
+            male_female_prefs, female_male_prefs)
+
+        for match, (other, is_lover, cosine) in men_partners.items():
             self.matches.append((match, other, is_lover, cosine))
 
-        # TODO: M->M
-        male_male_prefs = self.generate_group_matches(
-            male_male, male_male)
+        def same_sex_matching(group_a, group_b):
+            """
+            Args:
+                group_a ({ person_email: [(partner_email, cosine_similarity)]})
+                group_b ({ person_email: [(partner_email, cosine_similarity)]})
 
-        male_male_matches = gale_shapley(male_male_prefs, male_male_prefs)
-        for match, (other, is_lover, cosine) in male_male_matches.items():
-            self.matches.append((match, other, is_lover, cosine))
+            Matches Gale-Shapely when both groups co-date each other,
+            Filtered preferences and split groups prevent matching errors
+            """
+            pref_list = self.generate_group_preferences(
+                group_a, group_b)
+            a, b = split_groups(pref_list)
 
-        # TODO: F->F
-        female_female_prefs = self.generate_group_matches(
-            female_female, female_female)
+            filtered_a, filtered_b = filter_preferences(
+                pref_list, a, b), filter_preferences(pref_list, b, a)
 
-        female_female_matches = gale_shapley(
-            female_female_prefs, female_female_prefs)
-        for match, (other, is_lover, cosine) in female_female_matches.items():
-            self.matches.append((match, other, is_lover, cosine))
+            matches, _ = gale_shapley(filtered_a, filtered_b)
+            for match, (other, is_lover, cosine) in matches.items():
+                self.matches.append((match, other, is_lover, cosine))
 
-    """
-        Takes in a list of people, and a list of preferred_partners all people would be willing to date.
-        Calculates cosine similarity between all possible pairs, and returns preferences in order
+        same_sex_matching(male_male, male_male)
+        same_sex_matching(female_female, female_female)
 
-    Returns:
-        { person: [(date, cosine_similarity)]}
-    """
+    def generate_group_preferences(self, people, preferred_partners):
+        """
+        Params: Person[], Person[]
 
-    def generate_group_matches(self, people, preferred_partners):
+            Takes in a list of people, and a list of preferred_partners all people would be willing to date.
+            Calculates cosine similarity between all possible pairs, and returns preferences in order
 
+        Returns:
+            { person_email: [(partner_email, cosine_similarity)]}
+        """
         preferences = {}
         for left_person in people:
             matches = []
             for right_person in preferred_partners:
-                matches.append(
-                    (right_person, cosine_similarity(left_person.get_pref_partner_answer_weights(), right_person.get_self_answer_weights())))
+                if (left_person.get_email() != right_person.get_email()):
+                    matches.append(
+                        (right_person.get_email(), cosine_similarity(left_person.get_pref_partner_answer_weights(), right_person.get_self_answer_weights())))
 
             matches.sort(key=lambda match: -match[1])
             preferences[left_person.get_email()] = matches
-
         return preferences
 
 
-if __name__ == "__main__":
-    matcher = Matcher()
-    men_preference1 = {
-        "a": [("g", 0.8), ("f", 0.5), ("h", -0.2), ("e", -0.6)],
-        "b": [("h", 0.9), ("g", 0.3), ("f", -0.4), ("e", -0.7)],
-        "c": [("f", 0.7), ("h", 0.1), ("g", -0.5), ("e", -0.9)],
-        "d": [("g", 0.6), ("e", 0.4), ("f", -0.3), ("h", -0.8)],
-        "e": [("e", 0.7), ("f", 0.2), ("h", -0.1), ("g", -0.5)]
-    }
+# if __name__ == "__main__":
+#     matcher = Matcher()
+#     male_male_pref_list = {
+#         "a": [("b", 0.8), ("c", 0.7), ("d", 0.5), ("e", 0.3)],
+#         "b": [("c", 0.8), ("d", 0.6), ("e", 0.4), ("a", 0.2)],
+#         "c": [("d", 0.9), ("e", 0.7), ("a", 0.5), ("b", 0.3)],
+#         "d": [("e", 0.8), ("a", 0.6), ("b", 0.4), ("c", 0.2)],
+#         "e": [("d", 0.9), ("b", 0.7), ("c", 0.5), ("a", 0.3)]
+#     }
+#     male_a, male_b = split_groups(male_male_pref_list)
 
-    women_preference1 = {
-        "e": [("b", 0.9), ("e", 0.3), ("c", 0.2), ("a", -0.4), ("d", -0.6)],
-        "f": [("e", 0.8), ("b", 0.5), ("d", -0.2), ("c", -0.7), ("a", -0.9)],
-        "g": [("b", 0.7), ("a", 0.6), ("d", 0.4), ("e", -0.3), ("c", -0.8)],
-        "h": [("c", 0.7), ("b", 0.3), ("e", 0.1), ("d", -0.5), ("a", -0.9)]
-    }
-    mPartner, wPartner = gale_shapley(men_preference1, women_preference1)
-    print(mPartner)
-    print(wPartner)
-    print("Final Stable Matches:")
-    for man, woman in mPartner.items():
-        print(f"{man} ⟶ {woman if woman else 'Unmatched'}")
+#     filtered_a, filtered_b = filter_preferences(
+#         male_male_pref_list, male_a, male_b), filter_preferences(male_male_pref_list, male_b, male_a)
+
+#     # Run the stable matching algorithm
+#     mPartner, wPartner = gale_shapley(filtered_a, filtered_b)
+
+#     print("Final Stable Matches:")
+#     for man, woman in mPartner.items():
+#         print(f"{man} ⟶ {woman if woman else 'Unmatched'}")
