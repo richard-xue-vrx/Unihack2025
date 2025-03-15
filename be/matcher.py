@@ -1,6 +1,10 @@
 from matching_algos.cosine_similarity import cosine_similarity
 from matching_algos.gale_shapley import gale_shapley
+import json
+from person import Person
 
+
+USER_WEIGHTS_DATA = "user_weights.json"
 
 def split_groups(preference_list):
     """
@@ -23,7 +27,7 @@ def filter_preferences(preference_list, group_A, group_B):
             group_B if person in group_A else group_A)]
     return filtered
 
-
+# create this class when we want to run the matches
 class Matcher:
 
     def __init__(self):
@@ -33,15 +37,37 @@ class Matcher:
 
     def add_person(self, person):
         self.persons.append(person)
+        return person
 
     def get_person(self, email):
         return self.persons[email]
+    
+    def load_persons(self):
+        try:
+            with open(USER_WEIGHTS_DATA, "r") as FILE:
+                data = json.load(FILE)
+        except Exception as e:
+            data = {}
+        
+        # Iterate through each entry in the JSON file
+        for email, weights in data.items():
+            try:
+                person = Person.from_profile(
+                    self_info=weights["person_info"],
+                    self_answer_weights=weights["self_weights"],
+                    pref_partner_answer_weights=weights["partner_weights"]
+                )
+                self.persons.append(person)
+            except Exception as e:
+                print(f"Error creating Person for {email}: {e}")
+                continue
 
     def generate_matches(self):
         """
             Generate matches in order of preference for 
             all preferred genders and sexual preferences supported
         """
+        self.load_persons()
 
         male_male = []
         female_female = []
@@ -87,10 +113,11 @@ class Matcher:
 
             filtered_a, filtered_b = filter_preferences(
                 pref_list, a, b), filter_preferences(pref_list, b, a)
-
             matches, _ = gale_shapley(filtered_a, filtered_b)
-            for match, (other, is_lover, cosine) in matches.items():
-                self.matches.append((match, other, is_lover, cosine))
+
+            for match, matchInfo in matches.items():
+                if matchInfo is not None:
+                    self.matches.append((match, other, is_lover, cosine))
 
         same_sex_matching(male_male, male_male)
         same_sex_matching(female_female, female_female)

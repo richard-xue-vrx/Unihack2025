@@ -60,6 +60,23 @@ class Person:
 
         return (self_answer_weights, pref_partner_answer_weights)
 
+    @classmethod
+    def from_profile(cls, self_info, self_answer_weights, pref_partner_answer_weights):
+        """
+        Alternative constructor that creates a Person instance
+        given precomputed profile data.
+        """
+        # Create an instance without calling __init__
+        instance = cls.__new__(cls)
+        instance.survey_json = {}
+        instance.self_info = self_info
+        instance.self_answer_weights = self_answer_weights
+        instance.pref_partner_answer_weights = pref_partner_answer_weights
+
+        instance.category_weights = {}  
+        instance.questions = []          
+
+        return instance
 
 class QuestionFactory:
 

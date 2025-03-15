@@ -7,3 +7,6 @@ Don't forget to `pnpm i` in the frontend folder.<br>
 To run the frontend run `pnpm dev`.
 
 Visit the app at `http://localhost:3000/`.
+
+
+#### Once enough data is collated, run python main.py in the backend

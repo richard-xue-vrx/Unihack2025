@@ -10,6 +10,7 @@ import threading
 
 app = Flask(__name__)
 USER_DATA = "user_data.json"
+USER_WEIGHTS_DATA = "user_weights.json"
 matcher = Matcher()
 data_lock = threading.Lock()
 
@@ -48,6 +49,12 @@ def surveySubmit():
             except:
                 all_data = {}
 
+            try:
+                with open(USER_WEIGHTS_DATA, "r") as FILE2:
+                    weights_data = json.load(FILE2)
+            except:
+                weights_data = {}
+
             # Store data under unique email
             all_data[user_email] = new_data
 
@@ -56,7 +63,18 @@ def surveySubmit():
                 json.dump(all_data, FILE)
 
             # Create Person
-            matcher.add_person(Person(new_data))
+            newPerson = matcher.add_person(Person(new_data))
+
+            weights_object = {
+                "person_info": newPerson.self_info,
+                "self_weights": newPerson.self_answer_weights,
+                "partner_weights": newPerson.pref_partner_answer_weights
+            }
+
+            weights_data[user_email] = weights_object
+
+            with open(USER_WEIGHTS_DATA, "w") as FILE2:
+                json.dump(weights_data, FILE2)
 
     except Exception as e:
         return jsonify({"error": f"Failed to store user submission, {str(e)}"}), 500
