@@ -3,25 +3,40 @@
 import math
 class Person:
     def __init__(self, survey_json):
-        self.survey_json = survey_json
-
         self.self_info = {
-            "email": self.survey_json["email"],
-            "first_name": self.survey_json["first_name"],
-            "last_name": self.survey_json["last_name"],
-            "age": self.survey_json["age"],
-            "gender": self.survey_json["gender"],
-            "sexuality": self.survey_json["sexuality"],
+            "email": survey_json["email"],
+            "first_name": survey_json["first_name"],
+            "last_name": survey_json["last_name"],
+            "age": survey_json["age"],
+            "gender": survey_json["gender"],
+            "sexuality": survey_json["sexuality"],
         }
 
-        self.category_weights = self.survey_json["category_weights"]
+        self.category_weights = survey_json["category_weights"]
 
         # User Info, Category Weights
         self.questions = []
-        self.process_survey()
+        self.process_survey(survey_json)
 
         # weights for your own traits, weights for what you would like in a partner
         self.self_answer_weights, self.pref_partner_answer_weights = self.build_profile_vector()
+
+    @classmethod
+    def from_profile(cls, self_info, self_answer_weights, pref_partner_answer_weights):
+        """
+        Alternative constructor that creates a Person instance
+        given precomputed profile data.
+        """
+        # Create an instance without calling __init__
+        instance = cls.__new__(cls)
+        instance.self_info = self_info
+        instance.self_answer_weights = self_answer_weights
+        instance.pref_partner_answer_weights = pref_partner_answer_weights
+
+        instance.category_weights = {}  
+        instance.questions = []          
+
+        return instance
 
     def get_self_answer_weights(self):
         return self.self_answer_weights
@@ -38,10 +53,10 @@ class Person:
     def get_sexuality(self):
         return self.self_info["sexuality"]
 
-    def process_survey(self):
+    def process_survey(self, survey_json):
         # Process Questions
         question_factory = QuestionFactory()
-        for question in self.survey_json["questions"]:
+        for question in survey_json["questions"]:
             self.questions.append(question_factory.create_question(question))
 
     def build_profile_vector(self):
@@ -59,24 +74,6 @@ class Person:
                     question.encode(self.category_weights))
 
         return (self_answer_weights, pref_partner_answer_weights)
-
-    @classmethod
-    def from_profile(cls, self_info, self_answer_weights, pref_partner_answer_weights):
-        """
-        Alternative constructor that creates a Person instance
-        given precomputed profile data.
-        """
-        # Create an instance without calling __init__
-        instance = cls.__new__(cls)
-        instance.survey_json = {}
-        instance.self_info = self_info
-        instance.self_answer_weights = self_answer_weights
-        instance.pref_partner_answer_weights = pref_partner_answer_weights
-
-        instance.category_weights = {}  
-        instance.questions = []          
-
-        return instance
 
 class QuestionFactory:
 
