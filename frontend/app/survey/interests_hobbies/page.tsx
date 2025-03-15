@@ -3,7 +3,7 @@ import React from "react";
 
 import { AnsweredQuestion, UserDataContextType, useUserData } from "@/context/UserDataContext";
 import RankingQuestionTemplate from "../RankingQuestionTemplate";
-import { Ranked, survey } from "@/QuestionTypes";
+import { Ranked, Scale, survey } from "@/QuestionTypes";
 
 import { useRouter } from "next/navigation";
 import ScaleQuestionTemplate from "../ScaleQuestionTemplate";
@@ -50,7 +50,7 @@ export default function SurveyInterestsHobbies() {
               (currentQuestion.type === "RANKED")
             ? <RankingQuestionTemplate rankedQuestion={currentQuestion as Ranked} onSubmit={onSubmit}/>
             : (currentQuestion.type === "SCALE")
-            ? <ScaleQuestionTemplate/>
+            ? <ScaleQuestionTemplate scaleQuestion={currentQuestion as Scale} onSubmit={onSubmit}/>
             : null
           }
       </main>

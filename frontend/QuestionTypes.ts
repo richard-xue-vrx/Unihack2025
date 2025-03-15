@@ -1,4 +1,4 @@
-export type Category =   "personality" | "morals" | "interests_hobbies" | "life_goals" | "love_languages" | "lifestyle" | "politics"
+export type Category = "personality" | "morals" | "interests_hobbies" | "life_goals" | "love_languages" | "lifestyle" | "politics"
 
 interface Survey {
   sections: Section[]
@@ -296,6 +296,7 @@ export const survey: Survey = {
       questions: [
         lifegoalQuestion1,
         lifegoalQuestion2,
+        lifegoalQuestion5,
       ]
     },
     {
