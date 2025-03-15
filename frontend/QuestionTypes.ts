@@ -1,4 +1,4 @@
-export type Category =   "personality" | "morals" | "interests_hobbies" | "life_goals" | "love_languages" | "lifestyle" | "dealbreakers"
+export type Category =   "personality" | "morals" | "interests_hobbies" | "life_goals" | "love_languages" | "lifestyle" | "politics"
 
 interface Survey {
   sections: Section[]
@@ -23,6 +23,7 @@ export interface Ranked extends Question {
 
 export interface Scale extends Question {
   // We assume that the answers are always 1 to 5
+  answers: string[],
 }
 
 export interface Binary extends Question {
@@ -105,7 +106,7 @@ const lifestyleQuestion2: Binary = {
   ]
 }
 
-const lifestyleQuestion3: Binary = {
+const lifestyleQuestion3: Ranked = {
   category_name: "lifestyle",
   type: "RANKED",
   is_self_question: true,
@@ -119,7 +120,7 @@ const lifestyleQuestion3: Binary = {
   ]
 }
 
-const lifestyleQuestion4: Binary = {
+const lifestyleQuestion4: Ranked = {
   category_name: "lifestyle",
   type: "RANKED",
   is_self_question: true,
@@ -131,9 +132,9 @@ const lifestyleQuestion4: Binary = {
     "☕ Coffee at a cute café",
     "🌳 A scenic walk in the park"
   ]
-} 
+}
 
-const lifestyleQuestion5: Binary = {
+const lifestyleQuestion5: Scale = {
   category_name: "lifestyle",
   type: "SCALE",
   is_self_question: true,
@@ -143,9 +144,9 @@ const lifestyleQuestion5: Binary = {
     "🛋️ Never",
     "🏋️‍♀ Daily, without fail!"
   ]
-} 
+}
 
-const lifestyleQuestion6: Binary = {
+const lifestyleQuestion6: Scale = {
   category_name: "lifestyle",
   type: "SCALE",
   is_self_question: true,
@@ -155,7 +156,55 @@ const lifestyleQuestion6: Binary = {
     "🏠 I prefer staying home",
     "✈ I’m always planning my next trip"
   ]
-} 
+}
+
+const politicsQuestion1: Scale = {
+  category_name: "politics",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "I think wealth should be shared equally like giant pizza slices - no one should get all yummy bits while others are left with just the crust",
+  answers: [
+    "Strongly Disagree",
+    "Strongly Agree"
+  ]
+}
+
+const politicsQuestion2: Scale = {
+  category_name: "politics",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "I think the free economy will always correct itself without any government help - its like magic!",
+  answers: [
+    "Strongly Disagree",
+    "Strongly Agree"
+  ]
+}
+
+const politicsQuestion3: Scale = {
+  category_name: "politics",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "In think in turbulent times, a decisive government that may restrict some personal freedoms is necessary to keep society on track",
+  answers: [
+    "Strongly Disagree",
+    "Strongly Agree"
+  ]
+}
+
+const politicsQuestion4: Scale = {
+  category_name: "politics",
+  type: "SCALE",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "I think preserving individual freedom and free speech is more important - even if that means quite a bit of societal chaos",
+  answers: [
+    "Strongly Disagree",
+    "Strongly Agree"
+  ]
+}
 
 export const survey: Survey = {
   sections: [
@@ -183,6 +232,15 @@ export const survey: Survey = {
         lifestyleQuestion5,
         lifestyleQuestion6
       ]
-    }
+    },
+    {
+      category: "politics",
+      questions: [
+        politicsQuestion1,
+        politicsQuestion2,
+        politicsQuestion3,
+        politicsQuestion4
+      ]
+    },
   ]
 }
