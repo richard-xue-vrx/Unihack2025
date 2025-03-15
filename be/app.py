@@ -88,7 +88,18 @@ Contains: LHS Initial, RHS Initial, Match Percentage
 
 @app.route("/v1/leaderboard", methods=["GET"])
 def leaderboard():
-    pass
+    if request.method != "GET":
+        return jsonify({"error": "Incorrect GET Method"}), 400
+
+    leaderboard = sorted(matcher.matches, key=lambda m: -m[3])[:10]
+    return jsonify({"message": "OK", "leaderboard": leaderboard}), 200
+
+
+"""
+    Send out email to successfully matched Couple
+    Email contents dependant on lover/friend match
+
+"""
 
 
 def craft_email(left_email, right_email, is_lover, email_password):
@@ -142,10 +153,16 @@ def craft_email(left_email, right_email, is_lover, email_password):
 
 @app.route("/v1/emailSend", methods=["POST"])
 def send_email():
+    if request.method != "POST":
+        return jsonify({"error": "Incorrect POST Method"}), 400
 
     with open("secret.txt", "r") as FILE:
         EMAIL_PASSWORD = FILE.readline().strip()
         for left_email, right_email, is_lover in matcher.matches():
             craft_email(left_email, right_email, is_lover, EMAIL_PASSWORD)
             craft_email(right_email, left_email, is_lover, EMAIL_PASSWORD)
+
+        if len(matcher.persons) % 2 == 1:
+            # TODO
+            pass
     return jsonify({"message": "OK"}), 200
