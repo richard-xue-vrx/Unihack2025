@@ -1,4 +1,5 @@
 from person import Person
+from matching_algos.cosine_similarity import cosine_similarity
 
 johndoe_data = {
     "email" : "johndoe@email.com",
@@ -23,8 +24,8 @@ johndoe_data = {
             "is_similar_question" : False,
             "question_text": "What sounds more fun?",
             "answers" : [
-                {"A last minute road trip" : 1},
-                {"A cozy night at home" : 0}
+                {"A last minute road trip" : 0},
+                {"A cozy night at home" : 1}
             ]
         }, 
         {
@@ -99,8 +100,8 @@ janedoe_data = {
             "is_similar_question" : False,
             "question_text": "What sounds more fun?",
             "answers" : [
-                {"A last minute road trip" : 1},
-                {"A cozy night at home" : 0}
+                {"A last minute road trip" : 0},
+                {"A cozy night at home" : 1}
             ]
         }, 
         {
@@ -110,8 +111,8 @@ janedoe_data = {
             "is_similar_question" : False,
             "question_text": "How do you feel about last-minute plans?",
             "answers" : [
-                {"Love them!" : 1},
-                {"Not a fan - I like plans" : 0}
+                {"Love them!" : 0},
+                {"Not a fan - I like plans" : 1}
             ]
         }, 
         {
@@ -121,10 +122,10 @@ janedoe_data = {
             "is_similar_question" : True,
             "question_text": "If you had a free day, what would you most likely do?",
             "answers" : [
-                {"Binge-watch a new show" : 3},
+                {"Binge-watch a new show" : 9},
                 {"Hit the gym or go for a hike" : 10},
                 {"Read a book or listen to a podcast" : 2},
-                {"Go out and explore the city" : 10}
+                {"Go out and explore the city" : 3}
             ]
         },
         {
@@ -166,3 +167,10 @@ print(jane.self_answer_weights)
 
 print("\nJane Doe Preferred Partner Profile Vector:")
 print(jane.pref_partner_answer_weights)
+
+janetoJohnsimilarity = cosine_similarity(john.self_answer_weights, jane.pref_partner_answer_weights)
+print("\nJane to John Cosine Similarity:")
+print(janetoJohnsimilarity)
+johnToJanesimilarity = cosine_similarity(jane.self_answer_weights, john.pref_partner_answer_weights)
+print("\nJohn to Jane Cosine Similarity:")
+print(johnToJanesimilarity)

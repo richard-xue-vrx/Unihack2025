@@ -1,10 +1,11 @@
 import math
 
-
+# modified to ignore keys - just ordering of keys
 def cosine_similarity(dict1, dict2):
     '''
-    Compute cosine similarity between two dictionaries.
-
+    Compute cosine similarity between two dictionaries by treating them as ordered vectors,
+    ignoring the keys and using the order of insertion.
+    
     Args:
     dict1 (dict): First dictionary of question-answer pairs.
     dict2 (dict): Second dictionary of question-answer pairs.
@@ -12,13 +13,17 @@ def cosine_similarity(dict1, dict2):
     Returns:
         float: Cosine similarity between the two dictionaries.
     '''
-    dot_product = 0
-    for key in dict1:
-        if key in dict2:
-            dot_product += dict1[key] * dict2[key]
-    magnitude1 = math.sqrt(sum([x**2 for x in dict1.values()]))
-    magnitude2 = math.sqrt(sum([x**2 for x in dict2.values()]))
-    return dot_product / (magnitude1 * magnitude2) if magnitude1 * magnitude2 != 0 else 0
+    vec1 = list(dict1.values())
+    vec2 = list(dict2.values())
+    
+    if len(vec1) != len(vec2):
+        raise ValueError("Dictionaries must have the same number of values.")
+    
+    dot_product = sum(x * y for x, y in zip(vec1, vec2))
+    magnitude1 = math.sqrt(sum(x**2 for x in vec1))
+    magnitude2 = math.sqrt(sum(x**2 for x in vec2))
+    
+    return dot_product / (magnitude1 * magnitude2) if magnitude1 and magnitude2 else 0
 
 
 if __name__ == "__main__":
