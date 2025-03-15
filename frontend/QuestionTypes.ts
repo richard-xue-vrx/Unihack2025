@@ -317,10 +317,10 @@ const lifegoalQuestion5: Scale = {
   type: "SCALE",
   is_self_question: false,
   is_similar_question: false,
-  question: "How locked is your ideal partner?",
+  question: "How locked in is your ideal partner?",
   answers: [
-    "🎮 I'm geeking",
-    "🔒 I'm locked in"
+    "🏝️ Unemployment Island",
+    "💼 Future CEO"
   ]
 }
 
