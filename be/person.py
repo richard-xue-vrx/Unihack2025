@@ -27,6 +27,21 @@ class Person:
         # weights for your own traits, weights for what you would like in a partner
         self.self_answer_weights, self.pref_partner_answer_weights = self.build_profile_vector()
 
+    def get_self_answer_weights(self):
+        return self.self_answer_weights
+
+    def get_pref_partner_answer_weights(self):
+        return self.pref_partner_answer_weights
+
+    def get_email(self):
+        return self.self_info["email"]
+
+    def get_gender(self):
+        return self.self_info["gender"]
+
+    def get_sexuality(self):
+        return self.self_info["sexuality"]
+
     def process_survey(self):
         # Process Questions
         question_factory = QuestionFactory()
@@ -38,9 +53,11 @@ class Person:
 
         for question in self.questions:
             if question.is_self_question:
-                self_answer_weights.update(question.encode(self.category_weights))
+                self_answer_weights.update(
+                    question.encode(self.category_weights))
             else:
-                pref_partner_answer_weights.update(question.encode(self.category_weights))
+                pref_partner_answer_weights.update(
+                    question.encode(self.category_weights))
 
         return self_answer_weights, pref_partner_answer_weights
 
@@ -85,7 +102,8 @@ class BinaryQuestion (Question):
         Final result is returned as a dict to be appended to the user's profile vector
         """
 
-        category_weight = scaleCategoryWeight(category_weights.get(self.category_name, 1))
+        category_weight = scaleCategoryWeight(
+            category_weights.get(self.category_name, 1))
 
         answer_weights = {}
 
@@ -111,7 +129,8 @@ class RankedQuestion (Question):
         multiplies ranking with category weight and question type weight
         Returns dict mapping of each answer to its weighted ranking
         """
-        category_weight = scaleCategoryWeight(category_weights.get(self.category_name, 1))
+        category_weight = scaleCategoryWeight(
+            category_weights.get(self.category_name, 1))
 
         answer_weights = {}
         for answer in self.answers:
@@ -119,7 +138,8 @@ class RankedQuestion (Question):
                 # Center ranking for 5.5 midpoint.
                 centered_ranking = ranking - 5.5
                 encoded_key = f"{self.question_text} - {answer_text}"
-                answer_weights[encoded_key] = centered_ranking * category_weight * self.question_type_weight
+                answer_weights[encoded_key] = centered_ranking * \
+                    category_weight * self.question_type_weight
         return answer_weights
 
 
@@ -134,7 +154,8 @@ class ScaleQuestion (Question):
         multiplies ranking with category weight and question type weight
         Returns dict mapping of each answer to its weighted ranking
         """
-        category_weight = scaleCategoryWeight(category_weights.get(self.category_name, 1))
+        category_weight = scaleCategoryWeight(
+            category_weights.get(self.category_name, 1))
 
         answer_weights = {}
         for answer in self.answers:
@@ -142,8 +163,10 @@ class ScaleQuestion (Question):
                 # Center ranking for 5.5 midpoint.
                 centered_ranking = ranking - 3
                 encoded_key = answer_text
-                answer_weights[encoded_key] = centered_ranking * category_weight * self.question_type_weight
+                answer_weights[encoded_key] = centered_ranking * \
+                    category_weight * self.question_type_weight
         return answer_weights
+
 
 def scaleCategoryWeight(rating):
     """

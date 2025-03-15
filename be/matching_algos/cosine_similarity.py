@@ -1,5 +1,6 @@
 import math
 
+
 def cosine_similarity(dict1, dict2):
     '''
     Compute cosine similarity between two dictionaries.
@@ -18,6 +19,7 @@ def cosine_similarity(dict1, dict2):
     magnitude1 = math.sqrt(sum([x**2 for x in dict1.values()]))
     magnitude2 = math.sqrt(sum([x**2 for x in dict2.values()]))
     return dot_product / (magnitude1 * magnitude2) if magnitude1 * magnitude2 != 0 else 0
+
 
 if __name__ == "__main__":
     dict1 = {
