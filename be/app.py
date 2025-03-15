@@ -6,15 +6,6 @@ import json
 import smtplib
 from email.message import EmailMessage
 
-
-"""
-- Collection of different BE APIs here
-Require:
-- Homepage Endpoint, "/"
-- Survey Submission Endpoint, "/v1/surveySubmit"
-- Leaderboard Endpoint, "/v1/leaderboard"
-"""
-
 app = Flask(__name__)
 USER_DATA = "user_data.json"
 matcher = Matcher()
@@ -69,9 +60,7 @@ def surveySubmit():
 
 """
 Returns a JSON file containing leaderboard information
-TODO: Limit to maybe top 10?
-
-Contains: LHS Initial, RHS Initial, Match Percentage
+Contains: LHS Initial, RHS Initial, is_lover, Match Percentage
 {
     "leaderboard" : [
         {
@@ -95,13 +84,18 @@ def leaderboard():
     return jsonify({"message": "OK", "leaderboard": leaderboard}), 200
 
 
-"""
-    Send out email to successfully matched Couple
-    Email contents dependant on lover/friend match
-"""
-
-
 def craft_email(left_email, right_email, is_lover, email_password):
+    """
+    Args:
+        left_email: str, date or assigned partner
+        right_email: str, recipient email
+        is_lover: bool, is lover match or not
+        email_password: str, password for sender email
+
+    Sends successful matching email to recipients.
+    Reveals date/partner's initials and email
+    Altered email if a friend match
+    """
     SMTP_SERVER = "smtp.gmail.com"
     SMTP_PORT = 587
     EMAIL_ADDRESS = "unihack2025ProgChallenged@gmail.com"

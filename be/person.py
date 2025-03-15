@@ -15,9 +15,6 @@ class Person:
 
         self.category_weights = self.survey_json["category_weights"]
 
-        # Used in Gale-Shapely
-        self.preferred_partners = []
-
         # User Info, Category Weights
         self.questions = []
         self.process_survey()
@@ -54,9 +51,11 @@ class Person:
 
         for question in self.questions:
             if question.is_self_question:
-                self_answer_weights.update(question.encode(self.category_weights))
+                self_answer_weights.update(
+                    question.encode(self.category_weights))
             if not question.is_self_question or question.is_similar_question:
-                pref_partner_answer_weights.update(question.encode(self.category_weights))
+                pref_partner_answer_weights.update(
+                    question.encode(self.category_weights))
 
         return (self_answer_weights, pref_partner_answer_weights)
 
@@ -83,7 +82,8 @@ class Question:
         self.category_name = question_json.get("category_name", None)
         self.question_type = question_json.get("question_type", "").upper()
         self.is_self_question = question_json.get("is_self_question", True)
-        self.is_similar_question = question_json.get("is_similar_question", True)
+        self.is_similar_question = question_json.get(
+            "is_similar_question", True)
         self.question_text = question_json.get("question_text", "")
         self.answers = question_json.get("answers", [])
 
