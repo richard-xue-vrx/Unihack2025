@@ -1,0 +1,75 @@
+"use client";
+import React, { useState } from "react";
+import { Binary } from "@/QuestionTypes";
+import { AnsweredQuestion } from "@/context/UserDataContext";
+import { Button } from "@/components/ui/button";
+
+export default function BinaryQuestionTemplate({ binaryQuestion, onSubmit } : {
+  binaryQuestion: Binary,
+  onSubmit: (userAnswer: AnsweredQuestion) => void
+}) {
+  const handleSubmit = () => {
+    const answer = retrieveAnswer();
+    if (answer) onSubmit(answer);
+  }
+
+  const retrieveAnswer = () => {
+    const answers: { [key: string]: number }[] = [];
+    // TODO toast an error
+    if (selectedAnswer === null) return;
+
+    binaryQuestion.answers.forEach((answer, value) => {
+      if (answer === selectedAnswer) answers.push({[answer]: 1});
+      if (answer !== selectedAnswer) answers.push({[answer]: 0});
+    })
+
+    const userAnswer: AnsweredQuestion = {
+      category_name: binaryQuestion.category_name,
+      is_self_question: binaryQuestion.is_self_question,
+      is_similar_question: binaryQuestion.is_similar_question,
+      type: "SCALE",
+      question: binaryQuestion.question,
+      answers: answers
+    }
+
+    return userAnswer;
+  }
+
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+
+  const handleAnswerClick = (answer: string) => {
+    if (selectedAnswer === answer) {
+      setSelectedAnswer(null);
+    } else {
+      setSelectedAnswer(answer);
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-center space-y-6 min-w-[360px] max-w-[480px]">
+      <div className="text-2xl font-semibold text-center mb-4">
+        {binaryQuestion.question}
+      </div>
+      <div className="flex gap-4 w-full">
+        {binaryQuestion.answers.map((answer, index) => (
+          <div
+            key={index}
+            onClick={() => handleAnswerClick(answer)}
+            className={`w-1/2 h-40 text-lg flex justify-center items-center p-4 rounded-lg border cursor-pointer transition ${
+              selectedAnswer === answer
+                ? "bg-blue-500 text-white"
+                : "bg-white text-black hover:bg-gray-100"
+            }`}
+            style={{
+              userSelect: "none",
+              cursor: "pointer",
+            }}
+          >
+            <span>{answer}</span>
+          </div>
+        ))}
+      </div>
+      <Button onClick={handleSubmit} className="w-fit ml-auto">Next</Button>
+    </div>
+  );
+}

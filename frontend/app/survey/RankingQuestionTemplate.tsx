@@ -13,8 +13,12 @@ export default function RankingQuestionTemplate({ rankedQuestion, onSubmit } : {
   // Format the answer into the AnsweredQuestion structure
   const retrieveAnswer = () => {
     const answers: { [key: string]: number }[] = [];
+
     values.forEach((value, order) => {
-      answers.push({[rankedQuestion.answers[value]]: order})
+      // number here is normalised from 0 - 10
+      // So we (10 / rankedQuestion.answers.length) * (rankedQuestion.answers.length - order)
+      const score = (10 / rankedQuestion.answers.length) * (rankedQuestion.answers.length - order);
+      answers.push({[rankedQuestion.answers[value]]: score})
     })
 
     const userAnswer: AnsweredQuestion = {

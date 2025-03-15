@@ -3,10 +3,11 @@ import React from "react";
 
 import { AnsweredQuestion, UserDataContextType, useUserData } from "@/context/UserDataContext";
 import RankingQuestionTemplate from "../RankingQuestionTemplate";
-import { Ranked, Scale, survey } from "@/QuestionTypes";
+import { Binary, Ranked, Scale, survey } from "@/QuestionTypes";
 
 import { useRouter } from "next/navigation";
 import ScaleQuestionTemplate from "../ScaleQuestionTemplate";
+import BinaryQuestionTemplate from "../BinaryQuestionTemplate";
 
 const addQuestionAnswer = (answeredQuestion: AnsweredQuestion, context: UserDataContextType) => {
   const { userData, setUserData } = context;
@@ -44,13 +45,15 @@ export default function SurveyInterestsHobbies() {
     <div className="flex justify-center items-center h-screen gap-8">
       <main className="flex flex-col space-y-4 min-w-[360px] max-w-[480px]">
         <div className="text-base">
-          2. ⭐ Interests and Hobbies ⭐
+          4. ⭐ Interests and Hobbies ⭐
         </div>
           {
               (currentQuestion.type === "RANKED")
             ? <RankingQuestionTemplate rankedQuestion={currentQuestion as Ranked} onSubmit={onSubmit}/>
             : (currentQuestion.type === "SCALE")
             ? <ScaleQuestionTemplate scaleQuestion={currentQuestion as Scale} onSubmit={onSubmit}/>
+            : (currentQuestion.type === "BINARY")
+            ? <BinaryQuestionTemplate binaryQuestion={currentQuestion as Binary} onSubmit={onSubmit}/>
             : null
           }
       </main>

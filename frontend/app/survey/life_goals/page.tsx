@@ -16,7 +16,7 @@ const addQuestionAnswer = (answeredQuestion: AnsweredQuestion, context: UserData
   setUserData(newUserData);
 }
 
-export default function SurveyPersonality() {
+export default function SurveyLifeGoals() {
   const router = useRouter();
 
   const context = useUserData();
@@ -33,7 +33,7 @@ export default function SurveyPersonality() {
       userData.up_to_question = 0;
       userData.up_to_category = userData.up_to_category + 1;
       setUserData(userData);
-      router.push(`/survey/${survey.sections[userData.up_to_category].category}`)
+      router.push(`/survey/weightings`)
     } else {
       userData.up_to_question = userData.up_to_question + 1;
       setUserData(userData);
@@ -45,7 +45,7 @@ export default function SurveyPersonality() {
     <div className="flex justify-center items-center h-screen gap-8">
       <main className="flex flex-col space-y-4 min-w-[360px] max-w-[480px]">
         <div className="text-base">
-          1. ⭐ Personality ⭐
+          5. ⭐ Life Goals ⭐
         </div>
           {
               (currentQuestion.type === "RANKED")

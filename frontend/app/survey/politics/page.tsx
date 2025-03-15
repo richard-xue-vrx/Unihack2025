@@ -16,7 +16,7 @@ const addQuestionAnswer = (answeredQuestion: AnsweredQuestion, context: UserData
   setUserData(newUserData);
 }
 
-export default function SurveyPersonality() {
+export default function SurveyPolitics() {
   const router = useRouter();
 
   const context = useUserData();
@@ -45,7 +45,7 @@ export default function SurveyPersonality() {
     <div className="flex justify-center items-center h-screen gap-8">
       <main className="flex flex-col space-y-4 min-w-[360px] max-w-[480px]">
         <div className="text-base">
-          1. ⭐ Personality ⭐
+          3. ⭐ Politics ⭐
         </div>
           {
               (currentQuestion.type === "RANKED")
