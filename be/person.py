@@ -11,8 +11,6 @@ class Person:
             "age": self.survey_json["age"],
             "gender": self.survey_json["gender"],
             "sexuality": self.survey_json["sexuality"],
-            "religion_own": self.survey_json["religion_own"],
-            "religion_partner": self.survey_json["religion_partner"],
         }
 
         self.category_weights = self.survey_json["category_weights"]
@@ -49,17 +47,18 @@ class Person:
             self.questions.append(question_factory.create_question(question))
 
     def build_profile_vector(self):
-        self_answer_weights, pref_partner_answer_weights = {}
+        """
+        Builds a profile vector for the user and their preferred partner
+        """
+        self_answer_weights, pref_partner_answer_weights = {}, {}
 
         for question in self.questions:
             if question.is_self_question:
-                self_answer_weights.update(
-                    question.encode(self.category_weights))
-            else:
-                pref_partner_answer_weights.update(
-                    question.encode(self.category_weights))
+                self_answer_weights.update(question.encode(self.category_weights))
+            elif not question.is_self_question or self.is_similar_question:
+                pref_partner_answer_weights.update(question.encode(self.category_weights))
 
-        return self_answer_weights, pref_partner_answer_weights
+        return (self_answer_weights, pref_partner_answer_weights)
 
 
 class QuestionFactory:
