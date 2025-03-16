@@ -127,7 +127,7 @@ const politicsQuestion1: Scale = {
   type: "SCALE",
   is_self_question: true,
   is_similar_question: true,
-  question: "I think wealth should be shared equally like giant pizza slices - no one should get all yummy bits while others are left with just the crust",
+  question: "I think wealth should be more shared equally like giant pizza slices!",
   answers: [
     "Strongly Disagree",
     "Strongly Agree"
