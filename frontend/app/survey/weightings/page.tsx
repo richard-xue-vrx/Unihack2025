@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 
-import { AnsweredQuestion, UserData, UserDataContextType, useUserData } from "@/context/UserDataContext";
+import { AnsweredQuestion, useUserData } from "@/context/UserDataContext";
 import ScaleQuestionTemplate from "../ScaleQuestionTemplate";
 import { Scale } from "@/QuestionTypes";
 import { useRouter } from "next/navigation";
