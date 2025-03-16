@@ -59,15 +59,15 @@ export default function BinaryQuestionTemplate({
 
   return (
     <div className="flex flex-col items-center space-y-6 w-[480px] md:h-[480px] min-w-[360px] max-w-[480px] caret-transparent">
-      <div className="text-2xl font-semibold text-center mb-4">
+      <div className="text-1xl font-semibold text-center mb-4 h-24">
         {binaryQuestion.question}
       </div>
-      <div className="flex gap-4 w-full">
+      <div className="flex gap-4 w-full grow">
         {binaryQuestion.answers.map((answer, index) => (
           <div
             key={index}
             onClick={() => handleAnswerClick(answer)}
-            className={`w-1/2 h-40 text-lg flex justify-center items-center p-4 rounded-lg border cursor-pointer transition ${
+            className={`w-1/2 h-40 text-lg my-auto flex justify-center items-center p-4 rounded-lg border cursor-pointer transition ${
               selectedAnswer === answer
                 ? "bg-blue-500 text-white"
                 : "bg-white text-black hover:bg-gray-100"
@@ -81,12 +81,8 @@ export default function BinaryQuestionTemplate({
           </div>
         ))}
       </div>
-      <div className="grow">
-        {/* spacer */}
-      </div>
-      <Button onClick={handleSubmit} className="w-fit ml-auto select-none">
-        Next
-      </Button>
+      <Button onClick={handleSubmit} className="w-fit ml-auto select-none">Next</Button>
+
     </div>
   );
 }
