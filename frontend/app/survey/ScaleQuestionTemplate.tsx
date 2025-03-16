@@ -48,7 +48,7 @@ export default function ScaleQuestionTemplate({ scaleQuestion, onSubmit }: {
   const answersText = scaleQuestion.answers ?? ["Low", "High"]; // Default labels
 
   return (
-    <div className="flex flex-col items-center space-y-6 min-w-[360px] max-w-[480px] caret-transparent">
+    <div className="flex flex-col items-center space-y-6 w-[480px] md:h-[480px] min-w-[360px] max-w-[480px] caret-transparent">
       <div className="text-2xl font-semibold text-center mb-4">
         {scaleQuestion.question}
       </div>
@@ -78,7 +78,10 @@ export default function ScaleQuestionTemplate({ scaleQuestion, onSubmit }: {
         {/* Right Label */}
         <span className="text-sm text-gray-600 ml-2">{answersText[1]}</span>
       </div>
-      <Button onClick={handleSubmit} className="w-fit ml-auto cursor-default">
+      <div className="grow">
+        {/* spacer */}
+      </div>
+      <Button onClick={handleSubmit} className="w-fit ml-auto mt-auto select-none">
         Next
       </Button>
     </div>

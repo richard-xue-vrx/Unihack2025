@@ -58,7 +58,7 @@ export default function BinaryQuestionTemplate({
   };
 
   return (
-    <div className="flex flex-col items-center space-y-6 min-w-[360px] max-w-[480px] caret-transparent">
+    <div className="flex flex-col items-center space-y-6 w-[480px] md:h-[480px] min-w-[360px] max-w-[480px] caret-transparent">
       <div className="text-2xl font-semibold text-center mb-4">
         {binaryQuestion.question}
       </div>
@@ -81,7 +81,10 @@ export default function BinaryQuestionTemplate({
           </div>
         ))}
       </div>
-      <Button onClick={handleSubmit} className="w-fit ml-auto">
+      <div className="grow">
+        {/* spacer */}
+      </div>
+      <Button onClick={handleSubmit} className="w-fit ml-auto select-none">
         Next
       </Button>
     </div>
