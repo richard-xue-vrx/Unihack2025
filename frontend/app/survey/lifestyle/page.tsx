@@ -17,7 +17,6 @@ export default function SurveyLifestyle() {
   if (!context) return <div>Error: UserDataProvider is missing</div>;
   const { userData, setUserData } = context;
 
-
   const [currentQuestion, setCurrentQuestion] = React.useState(survey.sections[userData.up_to_category].questions[userData.up_to_question]);
 
   const onSubmit = (userAnswer: AnsweredQuestion) => {
