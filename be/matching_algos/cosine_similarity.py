@@ -27,6 +27,50 @@ def cosine_similarity(dict1, dict2):
 
     return dot_product / (magnitude1 * magnitude2) if magnitude1 and magnitude2 else 0
 
+def cosine_similarity_with_age_exp(dict1, dict2, age1, age2, alpha=0.1):
+    """
+    Computes an adjusted cosine similarity score that incporporates the relative age difference between two people
+    using an exponential falloff.
+    multiplier = L + (U - L) / (1 + exp(a * (diff - T)))
+
+    """
+
+    base_similarity = cosine_similarity(dict1, dict2)
+
+    normalized_similarity = (base_similarity + 1) / 2
+
+    age_diff = abs(age1 - age2)
+
+    age_base = min(age1, age2)
+
+    if age_base < 18:
+        # what r u doing on the app!
+        return -1
+    if age_base < 20:
+        U = 1.0 # no penalty for very small diff
+        L = 0.1  # minumum multiplier for large differences
+        T = 2.5 # difference threshold (in years)
+        a = 3.5  # drop steepness
+    elif age_base < 26:
+        U = 1.0 # no penalty for very small diff
+        L = 0.35  # minumum multiplier for large differences
+        T = 2.5 # difference threshold (in years)
+        a = 2.0  # drop steepness
+    else:
+        U = 1.0
+        L = 0.85
+        T = 3.0
+        a = 1.5
+
+    multiplier = L + (U - L) / (1 + math.exp(a * (age_diff - T)))
+
+    # apply the penalty
+    adjusted_similarity = normalized_similarity * multiplier
+
+    final_similarity = adjusted_similarity * 2 - 1
+
+    return final_similarity
+
 
 # if __name__ == "__main__":
 #     dict1 = {

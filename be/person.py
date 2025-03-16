@@ -46,6 +46,9 @@ class Person:
 
     def get_email(self):
         return self.self_info["email"]
+    
+    def get_age(self):
+        return self.self_info["age"]
 
     def get_gender(self):
         return self.self_info["gender"]
