@@ -1,32 +1,41 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Binary } from "@/QuestionTypes";
 import { AnsweredQuestion } from "@/context/UserDataContext";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
-export default function BinaryQuestionTemplate({ binaryQuestion, onSubmit } : {
-  binaryQuestion: Binary,
-  onSubmit: (userAnswer: AnsweredQuestion) => void
+export default function BinaryQuestionTemplate({
+  binaryQuestion,
+  onSubmit,
+}: {
+  binaryQuestion: Binary;
+  onSubmit: (userAnswer: AnsweredQuestion) => void;
 }) {
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+
+  // Reset selected answer when the binaryQuestion changes
+  useEffect(() => {
+    setSelectedAnswer(null);
+  }, [binaryQuestion]);
+
   const handleSubmit = () => {
     const answer = retrieveAnswer();
     if (answer) onSubmit(answer);
-  }
+  };
 
   const retrieveAnswer = () => {
     const answers: { [key: string]: number }[] = [];
 
     if (selectedAnswer === null) {
-      toast.error("Please rank the items before proceeding.", { duration: 1500 });
+      toast.error("Please make a selection before proceeding ❤️", { duration: 1500 });
+      return;
+    }
 
-          return;
-        }
-
-    binaryQuestion.answers.forEach((answer, value) => {
-      if (answer === selectedAnswer) answers.push({[answer]: 1});
-      if (answer !== selectedAnswer) answers.push({[answer]: 0});
-    })
+    binaryQuestion.answers.forEach((answer) => {
+      if (answer === selectedAnswer) answers.push({ [answer]: 1 });
+      if (answer !== selectedAnswer) answers.push({ [answer]: 0 });
+    });
 
     const userAnswer: AnsweredQuestion = {
       category_name: binaryQuestion.category_name,
@@ -34,13 +43,11 @@ export default function BinaryQuestionTemplate({ binaryQuestion, onSubmit } : {
       is_similar_question: binaryQuestion.is_similar_question,
       question_type: binaryQuestion.type,
       question_text: binaryQuestion.question,
-      answers: answers
-    }
+      answers: answers,
+    };
 
     return userAnswer;
-  }
-
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  };
 
   const handleAnswerClick = (answer: string) => {
     if (selectedAnswer === answer) {
@@ -51,7 +58,7 @@ export default function BinaryQuestionTemplate({ binaryQuestion, onSubmit } : {
   };
 
   return (
-    <div className="flex flex-col items-center space-y-6 min-w-[360px] max-w-[480px]">
+    <div className="flex flex-col items-center space-y-6 min-w-[360px] max-w-[480px] caret-transparent">
       <div className="text-2xl font-semibold text-center mb-4">
         {binaryQuestion.question}
       </div>
@@ -74,7 +81,9 @@ export default function BinaryQuestionTemplate({ binaryQuestion, onSubmit } : {
           </div>
         ))}
       </div>
-      <Button onClick={handleSubmit} className="w-fit ml-auto">Next</Button>
+      <Button onClick={handleSubmit} className="w-fit ml-auto">
+        Next
+      </Button>
     </div>
   );
 }

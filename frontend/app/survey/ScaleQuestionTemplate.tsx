@@ -17,7 +17,7 @@ export default function ScaleQuestionTemplate({ scaleQuestion, onSubmit }: {
 
   const handleSubmit = () => {
     if (selectedAnswer === null) {
-      toast.error("Please rank the items before proceeding.", { duration: 1500 });
+      toast.error("Please make a selection before proceeding ❤️", { duration: 1500 });
       return;
     }
 
@@ -45,27 +45,38 @@ export default function ScaleQuestionTemplate({ scaleQuestion, onSubmit }: {
     console.log("Selected answer:", value);
   };
 
+  const answersText = scaleQuestion.answers ?? ["Low", "High"]; // Default labels
+
   return (
-    <div className="flex flex-col items-center space-y-6 min-w-[360px] max-w-[480px]">
+    <div className="flex flex-col items-center space-y-6 min-w-[360px] max-w-[480px] caret-transparent">
       <div className="text-2xl font-semibold text-center mb-4">
         {scaleQuestion.question}
       </div>
-      <div className="flex gap-4 w-full justify-center">
-        {[1, 2, 3, 4, 5].map((number) => (
-          <div
-            key={number}
-            onClick={() => handleCircleClick(number)}
-            className={cn(
-              "w-12 h-12 flex justify-center items-center rounded-full cursor-pointer transition-colors",
-              selectedAnswer === number
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-black hover:bg-gray-300"
-            )}
-            style={{ userSelect: "none" }}
-          >
-            {number}
-          </div>
-        ))}
+      <div className="flex items-center gap-4 w-full justify-center">
+        {/* Left Label */}
+        <span className="text-sm text-gray-600 mr-2">{answersText[0]}</span>
+
+        {/* Scale Selection */}
+        <div className="flex gap-4">
+          {[1, 2, 3, 4, 5].map((number) => (
+            <div
+              key={number}
+              onClick={() => handleCircleClick(number)}
+              className={cn(
+                "w-12 h-12 flex justify-center items-center rounded-full cursor-pointer transition-colors",
+                selectedAnswer === number
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-black hover:bg-gray-300"
+              )}
+              style={{ userSelect: "none" }}
+            >
+              {number}
+            </div>
+          ))}
+        </div>
+
+        {/* Right Label */}
+        <span className="text-sm text-gray-600 ml-2">{answersText[1]}</span>
       </div>
       <Button onClick={handleSubmit} className="w-fit ml-auto cursor-default">
         Next
