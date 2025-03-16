@@ -46,7 +46,7 @@ export default function RankingQuestionTemplate({ rankedQuestion, onSubmit } : {
   }
 
   return (
-    <div className="flex flex-col space-y-4 min-w-[360px] max-w-[480px] caret-transparent">
+    <div className="flex flex-col space-y-4 w-[480px] md:h-[480px] min-w-[360px] max-w-[480px] caret-transparent">
       <div className="text-2xl">
         {rankedQuestion.question}
       </div>
@@ -67,7 +67,10 @@ export default function RankingQuestionTemplate({ rankedQuestion, onSubmit } : {
         </Reorder.Group>
         <div className="text-center opacity-60">least</div>
       </div>
-      <Button onClick={() => onSubmit(retrieveAnswer())} className="w-fit ml-auto select-none">Next</Button>
+      <div className="grow">
+        {/* spacer */}
+      </div>
+      <Button onClick={() => onSubmit(retrieveAnswer())} className="w-fit ml-auto mt-auto select-none">Next</Button>
     </div>
   );
 }
