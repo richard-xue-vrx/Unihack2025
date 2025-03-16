@@ -78,7 +78,7 @@ export default function ScaleQuestionTemplate({ scaleQuestion, onSubmit }: {
         {/* Right Label */}
         <span className="text-sm text-gray-600 ml-2">{answersText[1]}</span>
       </div>
-      <Button onClick={handleSubmit} className="w-fit ml-auto cursor-default">
+      <Button onClick={handleSubmit} className="w-fit ml-auto cursor-default select-none">
         Next
       </Button>
     </div>

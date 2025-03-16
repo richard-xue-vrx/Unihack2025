@@ -67,7 +67,7 @@ export default function RankingQuestionTemplate({ rankedQuestion, onSubmit } : {
         </Reorder.Group>
         <div className="text-center opacity-60">least</div>
       </div>
-      <Button onClick={() => onSubmit(retrieveAnswer())} className="w-fit ml-auto">Next</Button>
+      <Button onClick={() => onSubmit(retrieveAnswer())} className="w-fit ml-auto select-none">Next</Button>
     </div>
   );
 }

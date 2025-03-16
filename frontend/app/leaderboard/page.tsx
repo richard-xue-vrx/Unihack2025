@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 interface LeaderboardEntry {
   left_initials: string;
@@ -31,8 +32,11 @@ export default function Home() {
   return (
     <div className="flex flex-col justify-center items-center h-screen gap-8 bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 p-8 caret-transparent">
       <main className="flex flex-col space-y-4 min-w-[480px] max-w-[600px] p-6 bg-white rounded-lg shadow-lg">
-        <div className="text-2xl text-center font-semibold">🏆 Love Leaderboard 🏆</div>
+        <Link href="/" className="underline underline-offset-2 opacity-60 hover:opacity-100">
+          back to home
+        </Link>
 
+        <div className="text-2xl text-center font-semibold">🏆 Love Leaderboard 🏆</div>
         <div className="text-sm text-center text-gray-500">
           {leaderboard.length === 0 ? (
             <div className="text-center text-gray-500">Loading...</div>

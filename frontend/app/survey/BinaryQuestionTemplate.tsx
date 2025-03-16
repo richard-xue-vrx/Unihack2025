@@ -81,7 +81,7 @@ export default function BinaryQuestionTemplate({
           </div>
         ))}
       </div>
-      <Button onClick={handleSubmit} className="w-fit ml-auto">
+      <Button onClick={handleSubmit} className="w-fit ml-auto select-none">
         Next
       </Button>
     </div>
