@@ -24,7 +24,7 @@ export default function SurveyInterestsHobbies() {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen gap-8 bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 p-8 caret-transparent">
-      <main className="flex flex-col space-y-4 min-w-[480px] max-w-[600px] p-6 bg-white rounded-lg shadow-lg">
+      <main className="flex flex-col space-y-4 min-w-[480px] max-w-[600px] min-h-[700px] p-6 bg-white rounded-lg shadow-lg">
         <div className="text-base">
           3. ⭐ Interests and Hobbies ⭐
         </div>

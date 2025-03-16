@@ -58,7 +58,7 @@ export default function BinaryQuestionTemplate({
   };
 
   return (
-    <div className="flex flex-col items-center space-y-6 w-[480px] md:h-[480px] min-w-[360px] max-w-[480px] caret-transparent">
+    <div className="flex flex-col items-center space-y-6 w-[480px] md:h-[480px] min-w-[360px] max-w-[480px] caret-transparent grow">
       <div className="text-2xl font-semibold text-center mb-4">
         {binaryQuestion.question}
       </div>
