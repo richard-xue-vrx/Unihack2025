@@ -94,7 +94,7 @@ export default function Onboarding() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen gap-8 bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 p-8">
+    <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 p-8">
       <div className="text-2xl text-white font-semibold mb-6">
         The boring stuff first 😴 ...
       </div>
