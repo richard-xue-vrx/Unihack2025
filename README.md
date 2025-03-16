@@ -1,4 +1,4 @@
-#### Cupids Arrow 💘
+## Cupids Arrow 💘
 
 Your couple-clicks solution to finding romantic partners. A short questionare then flushed straight into our algorithms to find your perfect match!
 
