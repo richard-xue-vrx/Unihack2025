@@ -129,6 +129,7 @@ def generate_matches():
         return jsonify({"error": "Incorrect GET Method"}), 400
 
     try:
+        matcher.matches = []
         matcher.generate_matches()  # Generate matches in memory
         return jsonify({"message": "Matches generated successfully in memory"}), 200
     except Exception as e:

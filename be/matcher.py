@@ -43,6 +43,7 @@ class Matcher:
         return self.persons[email]
     
     def load_persons(self):
+        self.persons = {}
         try:
             with open(USER_WEIGHTS_DATA, "r") as FILE:
                 data = json.load(FILE)
@@ -95,8 +96,11 @@ class Matcher:
         men_partners, _ = gale_shapley(
             male_female_prefs, female_male_prefs)
 
-        for match, (other, is_lover, cosine) in men_partners.items():
-            self.matches.append((match, other, is_lover, cosine))
+        if men_partners is not None:
+            for match, tup in men_partners.items():
+                if tup:
+                    other, is_lover, cosine = tup
+                    self.matches.append((match, other, is_lover, cosine))
 
         def same_sex_matching(group_a, group_b):
             """
@@ -113,14 +117,22 @@ class Matcher:
 
             filtered_a, filtered_b = filter_preferences(
                 pref_list, a, b), filter_preferences(pref_list, b, a)
-            matches, _ = gale_shapley(filtered_a, filtered_b)
+            result = gale_shapley(male_female_prefs, female_male_prefs)
 
-            for match, matchInfo in matches.items():
-                if matchInfo is not None:
-                    self.matches.append((match, other, is_lover, cosine))
+            if result is None:
+                raise ValueError("gale_shapley() returned None instead of a tuple")
 
+            matches, _ = result  # Unpacking only if valid
+
+            if matches is not None:
+                for match, matchInfo in matches.items():
+                    if matchInfo is not None:
+                        self.matches.append((match, other, is_lover, cosine))
+        
         same_sex_matching(male_male, male_male)
         same_sex_matching(female_female, female_female)
+
+        self.matches = remove_duplicate_matches(self.matches)
 
     def generate_group_preferences(self, people, preferred_partners):
         """
@@ -165,3 +177,21 @@ class Matcher:
 #     print("Final Stable Matches:")
 #     for man, woman in mPartner.items():
 #         print(f"{man} ⟶ {woman if woman else 'Unmatched'}")
+
+def remove_duplicate_matches(matches):
+    """
+    Removes duplicate matches from the list of tuples (match, other, is_lover, cosine).
+    Ensures that each pair appears only once in the final list.
+    """
+    unique_matches = set()
+    cleaned_matches = []
+
+    for match in matches:
+        # Sort the tuple so that (A, B) is the same as (B, A)
+        match_pair = tuple(sorted(match[:2]))
+
+        if match_pair not in unique_matches:
+            unique_matches.add(match_pair)
+            cleaned_matches.append(match)
+
+    return cleaned_matches
