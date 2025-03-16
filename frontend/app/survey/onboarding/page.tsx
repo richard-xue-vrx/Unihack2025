@@ -28,6 +28,8 @@ import { useUserData } from "@/context/UserDataContext";
 
 import { useRouter } from "next/navigation";
 
+import { survey } from "@/QuestionTypes";
+
 const formSchema = z.object({
   email: z.string().email({
     message: "Invalid email address.",
@@ -88,7 +90,7 @@ export default function Onboarding() {
     }
 
     setUserData(userData);
-    router.push('/survey/personality');
+    router.push(`/survey/${survey.sections[0].category}`);
   }
 
   return (

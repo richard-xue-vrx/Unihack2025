@@ -24,11 +24,8 @@ export default function Weightings() {
 
   const context = useUserData();
   if (!context) return <div>Error: UserDataProvider is missing</div>;
-  console.log(context)
 
   const { userData, setUserData } = context;
-  console.log(context)
-  console.log(userData);
 
   const [index, setIndex] = React.useState(0);
   const [theirWeights, setTheirWeights] = React.useState<number[]>([]);
@@ -37,17 +34,19 @@ export default function Weightings() {
     const ans = userAnswer.answers[0][weightingScaleQuestions[index].question];
     const newArr = [...theirWeights];
     newArr.push(ans);
+
     setTheirWeights(newArr);
     if (index + 1 < weightingTypes.length) {
       setIndex(index + 1);
     } else {
-      userData.category_weights.personality = theirWeights[0];
-      userData.category_weights.morals = theirWeights[1];
-      userData.category_weights.politics = theirWeights[2];
-      userData.category_weights.interest_hobbies = theirWeights[3];
-      userData.category_weights.life_goals = theirWeights[4];
-      userData.category_weights.love_languages = theirWeights[5];
-      userData.category_weights.lifestyle = theirWeights[6];
+      userData.category_weights.personality = newArr[0];
+      userData.category_weights.morals = newArr[1];
+      userData.category_weights.politics = newArr[2];
+      userData.category_weights.interest_hobbies = newArr[3];
+      userData.category_weights.life_goals = newArr[4];
+      userData.category_weights.love_languages = newArr[5];
+      userData.category_weights.lifestyle = newArr[6];
+
       setUserData(userData);
 
       router.push('/survey/submission');
@@ -57,7 +56,7 @@ export default function Weightings() {
   return (
     <div className="flex flex-col justify-center items-center h-screen gap-8 bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 p-8 caret-transparent">
       <main className="flex flex-col space-y-4 min-w-[480px] max-w-[600px] p-6 bg-white rounded-lg shadow-lg">
-      <ScaleQuestionTemplate scaleQuestion={weightingScaleQuestions[index]} onSubmit={onSubmit}/>
+        <ScaleQuestionTemplate scaleQuestion={weightingScaleQuestions[index]} onSubmit={onSubmit}/>
       </main>
     </div>
   );

@@ -3,20 +3,20 @@ from matcher import Matcher
 from person import Person
 # import pickle
 import json
+import os
 import smtplib
 from email.message import EmailMessage
 from flask_cors import CORS
 import threading
 
 app = Flask(__name__)
-USER_DATA = "user_data.json"
 USER_WEIGHTS_DATA = "user_weights.json"
 matcher = Matcher()
 data_lock = threading.Lock()
 
 
-
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+
 
 @app.route("/", methods=["GET"])
 def home():
@@ -44,24 +44,14 @@ def surveySubmit():
     try:
         # Safety check to see if previous data exists
         with data_lock:
-            try:
-                with open(USER_DATA, "r") as FILE:
-                    all_data = json.load(FILE)
-            except:
-                all_data = {}
 
-            try:
-                with open(USER_WEIGHTS_DATA, "r") as FILE2:
-                    weights_data = json.load(FILE2)
-            except:
-                weights_data = {}
+            # Ensure USER_WEIGHTS_DATA file exists
+            if not os.path.exists(USER_WEIGHTS_DATA):
+                with open(USER_WEIGHTS_DATA, "w") as f:
+                    json.dump({}, f)
 
-            # Store data under unique email
-            all_data[user_email] = new_data
-
-            # Write again w/ new data
-            with open(USER_DATA, "w") as FILE:
-                json.dump(all_data, FILE)
+            with open(USER_WEIGHTS_DATA, "r") as FILE2:
+                weights_data = json.load(FILE2)
 
             # Create Person
             newPerson = Person(new_data)
@@ -130,8 +120,10 @@ def leaderboard():
     return jsonify({"message": "OK", "leaderboard": leaderboard_data}), 200
 
 
-# have to call this on the backend to generate 
+# have to call this on the backend to generate
 # disabled until we want to use it
+
+
 @app.route("/v1/generateMatches", methods=["GET"])
 def generate_matches():
     if request.method != "GET":
@@ -142,6 +134,7 @@ def generate_matches():
         return jsonify({"message": "Matches generated successfully in memory"}), 200
     except Exception as e:
         return jsonify({"error": f"Failed to generate matches: {str(e)}"}), 500
+
 
 def craft_email(left_email, right_email, is_lover, email_password):
     """
