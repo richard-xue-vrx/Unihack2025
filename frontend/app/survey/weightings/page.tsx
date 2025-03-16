@@ -1,69 +1,23 @@
 "use client"
 import React from "react";
 
-import { AnsweredQuestion, useUserData } from "@/context/UserDataContext";
+import { AnsweredQuestion, UserData, UserDataContextType, useUserData } from "@/context/UserDataContext";
 import ScaleQuestionTemplate from "../ScaleQuestionTemplate";
 import { Scale } from "@/QuestionTypes";
 import { useRouter } from "next/navigation";
 
-const weightingScaleQuestions: Scale[] = [
-    {
-      category_name: "personality",
-      type: "SCALE",
-      is_self_question: true,
-      is_similar_question: true,
-      question: "How important is my partner’s personality to me?",
-      answers: []
-    },
-    {
-      category_name: "morals",
-      type: "SCALE",
-      is_self_question: true,
-      is_similar_question: true,
-      question: "How important is it to me that my partner has a similar moral compass to me?",
-      answers: []
-    },
-    {
-      category_name: "politics",
-      type: "SCALE",
-      is_self_question: true,
-      is_similar_question: true,
-      question: "Do you care about sharing the same political views as your partner?",
-      answers: []
-    },
-    {
-      category_name: "interests_hobbies",
-      type: "SCALE",
-      is_self_question: true,
-      is_similar_question: true,
-      question: "How important is it to me that my partner has similar hobbies and interests to me?",
-      answers: []
-    },
-    {
-      category_name: "life_goals",
-      type: "SCALE",
-      is_self_question: true,
-      is_similar_question: true,
-      question: "How important is it to me that my partner shares similar life goals?",
-      answers: []
-    },
-    {
-      category_name: "love_languages",
-      type: "SCALE",
-      is_self_question: true,
-      is_similar_question: true,
-      question: "How important is it to me that my partner has a similar love language to me?",
-      answers: []
-    },
-    {
-      category_name: "lifestyle",
-      type: "SCALE",
-      is_self_question: true,
-      is_similar_question: true,
-      question: "How important is it to me that my partner has a similar lifestyle to me?",
-      answers: []
-    }
-  ];
+const weightingTypes = ["personality", "morals", "politics", "interest hobbies", "life goals", "love_languages", "lifestyle"];
+const weightingScaleQuestions = weightingTypes.map(weight => {
+  const scaleQuestionAbuse: Scale = {
+    category_name: "lifestyle",
+    type: "SCALE",
+    is_self_question: true,
+    is_similar_question: true,
+    question: `How important is ${weight} to you?`,
+    answers: []
+  }
+  return scaleQuestionAbuse;
+})
 
 export default function Weightings() {
   const router = useRouter();
@@ -78,10 +32,11 @@ export default function Weightings() {
 
   const onSubmit = (userAnswer: AnsweredQuestion) => {
     const ans = userAnswer.answers[0][weightingScaleQuestions[index].question];
-    const newArr = [...theirWeights, ans];
+    const newArr = [...theirWeights];
+    newArr.push(ans);
 
     setTheirWeights(newArr);
-    if (index + 1 < weightingScaleQuestions.length) {
+    if (index + 1 < weightingTypes.length) {
       setIndex(index + 1);
     } else {
       userData.category_weights.personality = newArr[0];
