@@ -430,11 +430,11 @@ const personalityQuestion2: Binary = {
   category_name: "personality",
   type: "BINARY",
   is_self_question: true,
-  is_similar_question: false,
-  question: "What do you do at a party?",
+  is_similar_question: true,
+  question: "How do you typically handle disagreements?",
   answers: [
-    "🗣️ Jump into a conversations with everyone!",
-    "👥 Stick with people I know"
+    "🤝 I prefer to resolve them right away",
+    "⌛ I need some time to think about it"
   ]
 }
 
@@ -442,11 +442,11 @@ const personalityQuestion3: Binary = {
   category_name: "personality",
   type: "BINARY",
   is_self_question: true,
-  is_similar_question: true,
-  question: "How do you typically handle disagreements?",
+  is_similar_question: false,
+  question: "What do you do at a party?",
   answers: [
-    "🤝 I prefer to resolve them right away",
-    "⌛ I need some time to think about it"
+    "🗣️ Jump into a conversations with everyone!",
+    "👥 Stick with people I know"
   ]
 }
 
