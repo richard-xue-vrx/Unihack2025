@@ -81,7 +81,7 @@ export default function Onboarding() {
     userData.age = values.age;
     userData.gender = values.gender;
 
-    if (values.sexuality === "heterosexual") {
+    if (values.sexuality === "straight") {
       // Adjust sexuality based on gender
       if (values.gender === "m") userData.sexuality = "f";
       if (values.gender === "f") userData.sexuality = "m";
@@ -184,7 +184,7 @@ export default function Onboarding() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="heterosexual">Heterosexual</SelectItem>
+                      <SelectItem value="straight">Straight</SelectItem>
                       <SelectItem value="lesbian">Lesbian</SelectItem>
                       <SelectItem value="gay">Gay</SelectItem>
                     </SelectContent>

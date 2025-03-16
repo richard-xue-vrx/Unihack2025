@@ -46,12 +46,11 @@ def surveySubmit():
         with data_lock:
 
             # Ensure USER_WEIGHTS_DATA file exists
-            if not os.path.exists(USER_WEIGHTS_DATA):
-                with open(USER_WEIGHTS_DATA, "w") as f:
-                    json.dump({}, f)
-
-            with open(USER_WEIGHTS_DATA, "r") as FILE2:
-                weights_data = json.load(FILE2)
+            try:
+                with open(USER_WEIGHTS_DATA, "r") as FILE:
+                    weights_data = json.load(FILE)
+            except:
+                weights_data = {}
 
             # Create Person
             newPerson = Person(new_data)
@@ -95,7 +94,7 @@ def leaderboard():
     if request.method != "GET":
         return jsonify({"error": "Incorrect GET Method"}), 400
 
-     #sort by decreasing similarity score
+     # sort by decreasing similarity score
      # matches is (email, other email, score, is_lover boolean)
     sorted_matches = sorted(matcher.matches, key=lambda m: -m[2])[:10]
 
@@ -115,7 +114,7 @@ def leaderboard():
                 "similarity": ((score + 1) / 2) * 100,
                 "is_lover": is_lover
             })
-    
+
     print(leaderboard_data)
     return jsonify({"message": "OK", "leaderboard": leaderboard_data}), 200
 
