@@ -1,7 +1,15 @@
-#### TODO: a name :(
+#### Backend
+
+Our Backend stack is built on a Python Flask Framework.
+
+Ensure you run the backend with flask!
+
+```cd be && flask run ```
+
+
 
 #### Frontend
-Recommend using `pnpm` if you aren't already or I'm sure you can just use `npm`.
+Recommend using `pnpm` if you aren't already or `npm`.
 
 Don't forget to `pnpm i` in the frontend folder.<br>
 To run the frontend run `pnpm dev`.
