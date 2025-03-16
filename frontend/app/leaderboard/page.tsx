@@ -35,7 +35,7 @@ export default function Home() {
         <div className="text-2xl text-center font-semibold">🏆 Love Leaderboard 🏆</div>
         <div className="text-sm text-center text-gray-500">
           {leaderboard.length === 0 ? (
-            <div className="text-center text-gray-500">Loading...</div>
+            <div className="text-center text-gray-500">Matching hasn't happened yet. Come back later!</div>
           ) : (
             <motion.div
               initial={{ opacity: 0, y: 50 }}

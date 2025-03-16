@@ -19,11 +19,13 @@ def cosine_similarity(dict1, dict2):
     vec1 = list(dict1.values())
     vec2 = list(dict2.values())
 
-    if len(vec1) != len(vec2):
-        raise ValueError(
-            "Dictionaries must have the same number of values, but have lengths {} and {}."
-            .format(len(vec1), len(vec2))
-        )
+    len_diff = abs(len(vec1) - len(vec2))
+
+    # Pad the shorter list with zeroes
+    if len(vec1) < len(vec2):
+        vec1.extend([0.0] * len_diff) 
+    elif len(vec2) < len(vec1):
+        vec2.extend([0.0] * len_diff) 
 
     dot_product = sum(x * y for x, y in zip(vec1, vec2))
     magnitude1 = math.sqrt(sum(x**2 for x in vec1))
