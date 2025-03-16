@@ -59,10 +59,10 @@ export default function BinaryQuestionTemplate({
 
   return (
     <div className="flex flex-col items-center space-y-6 w-[480px] md:h-[480px] min-w-[360px] max-w-[480px] caret-transparent">
-      <div className="text-1xl font-semibold text-center mb-4 h-24">
+      <div className="text-2xl font-semibold text-center mb-4">
         {binaryQuestion.question}
       </div>
-      <div className="flex gap-4 w-full grow">
+      <div className="flex gap-4 w-full">
         {binaryQuestion.answers.map((answer, index) => (
           <div
             key={index}
@@ -81,7 +81,10 @@ export default function BinaryQuestionTemplate({
           </div>
         ))}
       </div>
-      <Button onClick={handleSubmit} className="w-fit ml-auto select-none">Next</Button>
+      <div className="grow">
+        {/* spacer */}
+      </div>
+      <Button onClick={handleSubmit} className="w-fit mt-auto ml-auto select-none">Next</Button>
 
     </div>
   );
