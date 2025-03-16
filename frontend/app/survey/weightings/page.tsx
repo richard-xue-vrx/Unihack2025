@@ -6,25 +6,28 @@ import ScaleQuestionTemplate from "../ScaleQuestionTemplate";
 import { Scale } from "@/QuestionTypes";
 import { useRouter } from "next/navigation";
 
-export default function Weightings() {
-  const weightingTypes = ["personality", "morals", "politics", "interest_hobbies", "life_goals", "love_languages", "lifestyle"];
-  const weightingScaleQuestions = weightingTypes.map(weight => {
-    const scaleQuestionAbuse: Scale = {
-      category_name: "lifestyle",
-      type: "SCALE",
-      is_self_question: true,
-      is_similar_question: true,
-      question: `How important is ${weight} to you?`,
-      answers: []
-    }
-    return scaleQuestionAbuse;
-  })
+const weightingTypes = ["personality", "morals", "politics", "interest_hobbies", "life_goals", "love_languages", "lifestyle"];
+const weightingScaleQuestions = weightingTypes.map(weight => {
+  const scaleQuestionAbuse: Scale = {
+    category_name: "lifestyle",
+    type: "SCALE",
+    is_self_question: true,
+    is_similar_question: true,
+    question: `How important is ${weight} to you?`,
+    answers: []
+  }
+  return scaleQuestionAbuse;
+})
 
+export default function Weightings() {
   const router = useRouter();
 
   const context = useUserData();
   if (!context) return <div>Error: UserDataProvider is missing</div>;
+  console.log(context)
+
   const { userData, setUserData } = context;
+  console.log(context)
   console.log(userData);
 
   const [index, setIndex] = React.useState(0);

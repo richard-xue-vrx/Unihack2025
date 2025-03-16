@@ -317,10 +317,10 @@ const lifegoalQuestion5: Scale = {
   type: "SCALE",
   is_self_question: false,
   is_similar_question: false,
-  question: "How locked in is your ideal partner?",
+  question: "How locked is your ideal partner?",
   answers: [
-    "🏝️ Unemployment Island",
-    "💼 Future CEO"
+    "🎮 I'm geeking",
+    "🔒 I'm locked in"
   ]
 }
 
@@ -388,21 +388,7 @@ const moralsQuestion4: Ranked = {
   ]
 }
 
-const moralsQuestion5: Ranked = {
-  category_name: "morals",
-  type: "RANKED",
-  is_self_question: true,
-  is_similar_question: true,
-  question: "A co-worker is unfairly blamed for a mistake that was actually yours. Rank your responses from most to least likely:",
-  answers: [
-      "🤝 Own up immediately, no hesitation",
-      "🛑 Get defensive if the co-worker starts blaming you instead",
-      "⚠️ Only confess if they start facing real consequences",
-      "🤫 Stay quiet and move on"
-  ]
-}
-
-const moralsQuestion6: Scale = {
+const moralsQuestion5: Scale = {
   category_name: "morals",
   type: "SCALE",
   is_self_question: true,
@@ -516,7 +502,19 @@ const loveLanguageQuestion1: Binary = {
   ]
 }
 
-const loveLanguageQuestion2: Ranked = {
+const loveLanguageQuestion2: Binary = {
+  category_name: "love_languages",
+  type: "BINARY",
+  is_self_question: true,
+  is_similar_question: true,
+  question: "Are you a passenger princess or driver king?",
+  answers: [
+    "🚗 Driver King",
+    "👑 Passenger Princess"
+  ]
+}
+
+const loveLanguageQuestion3: Ranked = {
   category_name: "love_languages",
   type: "RANKED",
   is_self_question: true,
@@ -531,7 +529,7 @@ const loveLanguageQuestion2: Ranked = {
   ]
 }
 
-const loveLanguageQuestion3: Scale = {
+const loveLanguageQuestion4: Scale = {
   category_name: "love_languages",
   type: "SCALE",
   is_self_question: true,
@@ -605,8 +603,7 @@ export const survey: Survey = {
         moralsQuestion2,
         moralsQuestion3,
         moralsQuestion4,
-        moralsQuestion5,
-        moralsQuestion6
+        moralsQuestion5
       ]
     },
     {
@@ -627,6 +624,7 @@ export const survey: Survey = {
         loveLanguageQuestion1,
         loveLanguageQuestion2,
         loveLanguageQuestion3,
+        loveLanguageQuestion4
       ]
     }
   ]

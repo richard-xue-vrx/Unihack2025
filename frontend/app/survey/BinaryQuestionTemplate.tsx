@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Binary } from "@/QuestionTypes";
 import { AnsweredQuestion } from "@/context/UserDataContext";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export default function BinaryQuestionTemplate({ binaryQuestion, onSubmit } : {
   binaryQuestion: Binary,
@@ -15,8 +16,12 @@ export default function BinaryQuestionTemplate({ binaryQuestion, onSubmit } : {
 
   const retrieveAnswer = () => {
     const answers: { [key: string]: number }[] = [];
-    // TODO toast an error
-    if (selectedAnswer === null) return;
+
+    if (selectedAnswer === null) {
+      toast.error("Please rank the items before proceeding.", { duration: 1500 });
+
+          return;
+        }
 
     binaryQuestion.answers.forEach((answer, value) => {
       if (answer === selectedAnswer) answers.push({[answer]: 1});
