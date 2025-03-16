@@ -49,6 +49,9 @@ class Person:
     
     def get_age(self):
         return self.self_info["age"]
+    
+    def get_initials(self):
+        return self.self_info["first_name"][0].upper() + "." + self.self_info["last_name"][0].upper() + "."
 
     def get_gender(self):
         return self.self_info["gender"]
