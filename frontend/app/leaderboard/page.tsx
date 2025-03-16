@@ -69,7 +69,6 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Back to Home Link Positioned in the Bottom Right */}
       <Link
         href="/"
         className="absolute bottom-8 right-8 inline-block text-lg text-white font-medium p-2 rounded-full border-2 border-white hover:bg-white hover:text-indigo-500 transition-all duration-300"
