@@ -31,12 +31,12 @@ def filter_preferences(preference_list, group_A, group_B):
 class Matcher:
 
     def __init__(self):
-        self.persons = []
+        self.persons = {}
         # [(email, email, is_lover, score_percentage)]
         self.matches = []
 
     def add_person(self, person):
-        self.persons.append(person)
+        self.persons[person.get_email()] = person
         return person
 
     def get_person(self, email):
@@ -57,7 +57,7 @@ class Matcher:
                     self_answer_weights=weights["self_weights"],
                     pref_partner_answer_weights=weights["partner_weights"]
                 )
-                self.persons.append(person)
+                self.persons[person.get_email()] = person
             except Exception as e:
                 print(f"Error creating Person for {email}: {e}")
                 continue
@@ -74,7 +74,7 @@ class Matcher:
         male_female = []
         female_male = []
 
-        for person in self.persons:
+        for person in self.persons.values():
             if (person.get_gender() == "m" and person.get_sexuality() == "m"):
                 male_male.append(person)
             elif (person.get_gender() == "f" and person.get_sexuality() == "f"):
