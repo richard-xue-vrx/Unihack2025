@@ -53,7 +53,7 @@ export default function Home() {
                     className="bg-white p-4 rounded-lg shadow-md flex justify-between items-center border border-gray-200"
                   >
                     <div className="text-lg font-semibold">
-                      {left_initials} & ❤️ & {right_initials}
+                      {left_initials} ❤️ {right_initials}
                     </div>
                     <div className={`text-sm ${is_lover ? "text-red-500" : "text-yellow-500"}`}>
                       {is_lover ? "Lover 💕" : "Friend 💛"}
