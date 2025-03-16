@@ -480,7 +480,7 @@ const personalityQuestion5: Ranked = {
 const personalityQuestion6: Ranked = {
   category_name: "personality",
   type: "RANKED",
-  is_self_question: true,
+  is_self_question: false,
   is_similar_question: false,
   question: "Rank these personality qualities in order of importance in a partner",
   answers: [

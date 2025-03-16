@@ -1,4 +1,5 @@
 import math
+import json
 
 # modified to ignore keys - just ordering of keys
 
@@ -19,7 +20,10 @@ def cosine_similarity(dict1, dict2):
     vec2 = list(dict2.values())
 
     if len(vec1) != len(vec2):
-        raise ValueError("Dictionaries must have the same number of values.")
+        raise ValueError(
+            "Dictionaries must have the same number of values, but have lengths {} and {}."
+            .format(len(vec1), len(vec2))
+        )
 
     dot_product = sum(x * y for x, y in zip(vec1, vec2))
     magnitude1 = math.sqrt(sum(x**2 for x in vec1))
@@ -43,8 +47,8 @@ def cosine_similarity_with_age_exp(dict1, dict2, age1, age2, alpha=0.1):
 
     age_base = min(age1, age2)
 
-    if age_base < 18:
-        # what r u doing on the app!
+    if age_base < 18 and max(age1, age2) > 18:
+        # eyebrow emoji
         return -1
     if age_base < 20:
         U = 1.0 # no penalty for very small diff
