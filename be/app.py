@@ -95,9 +95,30 @@ def leaderboard():
     if request.method != "GET":
         return jsonify({"error": "Incorrect GET Method"}), 400
 
-    leaderboard = sorted(matcher.matches, key=lambda m: -m[3])[:10]
-    print(leaderboard)
-    return jsonify({"message": "OK", "leaderboard": leaderboard}), 200
+     #sort by decreasing similarity score
+     # matches is (email, other email, score, is_lover boolean)
+    sorted_matches = sorted(matcher.matches, key=lambda m: -m[2])[:10]
+
+    leaderboard_data = []
+
+    for match in sorted_matches:
+        left_email, right_email, score, is_lover = match
+
+        # Get the Person objects
+        left_person = matcher.get_person(left_email)
+        right_person = matcher.get_person(right_email)
+
+        if left_person and right_person:
+            leaderboard_data.append({
+                "left_initials": left_person.get_initials(),
+                "right_initials": right_person.get_initials(),
+                "similarity": ((score + 1) / 2) * 100
+                "is_lover": is_lover
+            })
+    
+    print(leaderboard_data)
+    return jsonify({"message": "OK", "leaderboard": leaderboard_data}), 200
+
 
 # have to call this on the backend to generate
 # disabled until we want to use it
