@@ -112,7 +112,7 @@ def leaderboard():
             leaderboard_data.append({
                 "left_initials": left_person.get_initials(),
                 "right_initials": right_person.get_initials(),
-                "similarity": ((score + 1) / 2) * 100
+                "similarity": ((score + 1) / 2) * 100,
                 "is_lover": is_lover
             })
     
