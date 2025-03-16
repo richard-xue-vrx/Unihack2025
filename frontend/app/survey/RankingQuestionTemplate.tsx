@@ -45,10 +45,6 @@ export default function RankingQuestionTemplate({ rankedQuestion, onSubmit } : {
     )
   }
 
-  React.useEffect(() => {
-    console.log(values.map(index => rankedQuestion.answers[index]));
-  }, [values]);
-
   return (
     <div className="flex flex-col space-y-4 min-w-[360px] max-w-[480px] caret-transparent">
       <div className="text-2xl">

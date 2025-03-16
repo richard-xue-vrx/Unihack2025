@@ -48,6 +48,7 @@ export default function Weightings() {
       userData.category_weights.life_goals = theirWeights[4];
       userData.category_weights.love_languages = theirWeights[5];
       userData.category_weights.lifestyle = theirWeights[6];
+
       setUserData(userData);
 
       router.push('/survey/submission');
@@ -55,9 +56,9 @@ export default function Weightings() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen gap-8">
-      <main className="flex flex-col space-y-4 min-w-[360px] max-w-[480px]">
-      <ScaleQuestionTemplate scaleQuestion={weightingScaleQuestions[index]} onSubmit={onSubmit}/>
+    <div className="flex flex-col justify-center items-center h-screen gap-8 bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 p-8 caret-transparent">
+      <main className="flex flex-col space-y-4 min-w-[480px] max-w-[600px] p-6 bg-white rounded-lg shadow-lg">
+        <ScaleQuestionTemplate scaleQuestion={weightingScaleQuestions[index]} onSubmit={onSubmit}/>
       </main>
     </div>
   );
