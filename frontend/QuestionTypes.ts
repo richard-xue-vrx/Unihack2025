@@ -546,15 +546,6 @@ const loveLanguageQuestion3: Scale = {
 export const survey: Survey = {
   sections: [
     {
-      // UPDATE THESE TO BE REAL QEUSTIONS
-      category: "personality",
-      questions: [
-        lifegoalQuestion1,
-        lifegoalQuestion2,
-        lifegoalQuestion5,
-      ]
-    },
-    {
       category: "lifestyle",
       questions: [
         lifestyleQuestion1,
@@ -563,7 +554,7 @@ export const survey: Survey = {
         lifestyleQuestion4,
         lifestyleQuestion5,
         lifestyleQuestion6,
-        lifestyleQuestion7
+        // lifestyleQuestion7
       ]
     },
     {
@@ -573,7 +564,7 @@ export const survey: Survey = {
         politicsQuestion2,
         politicsQuestion3,
         politicsQuestion4,
-        politicsQuestion5
+        // politicsQuestion5
       ]
     },
     {
@@ -584,7 +575,7 @@ export const survey: Survey = {
         interestsQuestion3,
         interestsQuestion4,
         interestsQuestion5,
-        interestsQuestion6
+        // interestsQuestion6
       ]
     },
     {
@@ -595,7 +586,7 @@ export const survey: Survey = {
         lifegoalQuestion3,
         lifegoalQuestion4,
         lifegoalQuestion5,
-        lifegoalQuestion6
+        // lifegoalQuestion6
       ]
     },
     {
@@ -606,7 +597,7 @@ export const survey: Survey = {
         moralsQuestion3,
         moralsQuestion4,
         moralsQuestion5,
-        moralsQuestion6
+        // moralsQuestion6
       ]
     },
     {
@@ -618,7 +609,7 @@ export const survey: Survey = {
         personalityQuestion4,
         personalityQuestion5,
         personalityQuestion6,
-        personalityQuestion7
+        // personalityQuestion7
       ]
     },
     {
@@ -626,7 +617,7 @@ export const survey: Survey = {
       questions: [
         loveLanguageQuestion1,
         loveLanguageQuestion2,
-        loveLanguageQuestion3,
+        // loveLanguageQuestion3,
       ]
     }
   ]

@@ -29,7 +29,12 @@ export default function SurveySubmission() {
   return (
     <div className="flex justify-center items-center h-screen gap-8">
       <main className="flex flex-col space-y-4 min-w-[360px] max-w-[480px]">
-        {JSON.stringify(userData)}
+        <div>
+          Questions answered: {userData.questions.length}
+        </div>
+        <div>
+          {JSON.stringify(userData.questions)}
+        </div>
       </main>
     </div>
   );

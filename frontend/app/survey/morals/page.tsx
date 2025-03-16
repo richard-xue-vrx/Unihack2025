@@ -10,7 +10,7 @@ import ScaleQuestionTemplate from "../ScaleQuestionTemplate";
 import BinaryQuestionTemplate from "../BinaryQuestionTemplate";
 import { navigateNextQuestion } from "../helpers";
 
-export default function SurveyLifestyle() {
+export default function SurveyMorals() {
   const router = useRouter();
 
   const context = useUserData();
@@ -28,7 +28,7 @@ export default function SurveyLifestyle() {
     <div className="flex justify-center items-center h-screen gap-8">
       <main className="flex flex-col space-y-4 min-w-[360px] max-w-[480px]">
         <div className="text-base">
-          1. ⭐ Life Style ⭐
+          5. ⭐ Morals ⭐
         </div>
           {
               (currentQuestion.type === "RANKED")
