@@ -30,12 +30,8 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen gap-8 bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 p-8 caret-transparent">
+    <div className="flex flex-col justify-center items-center h-screen gap-8 bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 p-8 caret-transparent relative">
       <main className="flex flex-col space-y-4 min-w-[480px] max-w-[600px] p-6 bg-white rounded-lg shadow-lg">
-        <Link href="/" className="underline underline-offset-2 opacity-60 hover:opacity-100">
-          back to home
-        </Link>
-
         <div className="text-2xl text-center font-semibold">🏆 Love Leaderboard 🏆</div>
         <div className="text-sm text-center text-gray-500">
           {leaderboard.length === 0 ? (
@@ -72,6 +68,14 @@ export default function Home() {
           )}
         </div>
       </main>
+
+      {/* Back to Home Link Positioned in the Bottom Right */}
+      <Link
+        href="/"
+        className="absolute bottom-8 right-8 inline-block text-lg text-white font-medium p-2 rounded-full border-2 border-white hover:bg-white hover:text-indigo-500 transition-all duration-300"
+      >
+        ← Back to Home
+      </Link>
     </div>
   );
 }
