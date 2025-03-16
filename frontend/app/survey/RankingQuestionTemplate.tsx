@@ -46,7 +46,7 @@ export default function RankingQuestionTemplate({ rankedQuestion, onSubmit } : {
   }
 
   return (
-    <div className="flex flex-col space-y-4 min-w-[360px] max-w-[480px]">
+    <div className="flex flex-col space-y-4 min-w-[360px] max-w-[480px] caret-transparent">
       <div className="text-2xl">
         {rankedQuestion.question}
       </div>

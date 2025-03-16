@@ -1,52 +1,63 @@
-"use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Scale } from "@/QuestionTypes";
 import { AnsweredQuestion } from "@/context/UserDataContext";
+import { toast } from "sonner";
 
-export default function ScaleQuestionTemplate({ scaleQuestion, onSubmit } : {
+export default function ScaleQuestionTemplate({ scaleQuestion, onSubmit }: {
   scaleQuestion: Scale,
   onSubmit: (userAnswer: AnsweredQuestion) => void
 }) {
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+
+  useEffect(() => {
+    setSelectedAnswer(null);
+  }, [scaleQuestion]);
+
   const handleSubmit = () => {
+    if (selectedAnswer === null) {
+      toast.error("Please make a selection before proceeding ❤️", { duration: 1500 });
+      return;
+    }
+
     const userAnswer = retrieveAnswer();
     if (userAnswer) onSubmit(userAnswer);
-  }
+  };
 
-  // Format the answer into the AnsweredQuestion structure
   const retrieveAnswer = () => {
-    const answers: { [key: string]: number }[] = [];
-    // TODO toast an error
     if (selectedAnswer === null) return;
-    answers.push({[scaleQuestion.question]: selectedAnswer});
 
-    const userAnswer: AnsweredQuestion = {
+    const answers = [{ [scaleQuestion.question]: selectedAnswer }];
+
+    return {
       category_name: scaleQuestion.category_name,
       is_self_question: scaleQuestion.is_self_question,
       is_similar_question: scaleQuestion.is_similar_question,
       question_type: scaleQuestion.type,
       question_text: scaleQuestion.question,
       answers: answers
-    }
-
-    return userAnswer;
-  }
-
-  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+    } as AnsweredQuestion;
+  };
 
   const handleCircleClick = (value: number) => {
     setSelectedAnswer(value === selectedAnswer ? null : value);
     console.log("Selected answer:", value);
   };
 
+  const answersText = scaleQuestion.answers ?? ["Low", "High"]; // Default labels
+
   return (
-      <div className="flex flex-col items-center space-y-6 min-w-[360px] max-w-[480px]">
-        <div className="text-2xl font-semibold text-center mb-4">
-          {scaleQuestion.question}
-        </div>
-        <div className="flex gap-4 w-full justify-center">
-          {/* Render circles with numbers 1 to 5 */}
+    <div className="flex flex-col items-center space-y-6 min-w-[360px] max-w-[480px] caret-transparent">
+      <div className="text-2xl font-semibold text-center mb-4">
+        {scaleQuestion.question}
+      </div>
+      <div className="flex items-center gap-4 w-full justify-center">
+        {/* Left Label */}
+        <span className="text-sm text-gray-600 mr-2">{answersText[0]}</span>
+
+        {/* Scale Selection */}
+        <div className="flex gap-4">
           {[1, 2, 3, 4, 5].map((number) => (
             <div
               key={number}
@@ -63,7 +74,13 @@ export default function ScaleQuestionTemplate({ scaleQuestion, onSubmit } : {
             </div>
           ))}
         </div>
-        <Button onClick={handleSubmit} className="w-fit ml-auto">Next</Button>
+
+        {/* Right Label */}
+        <span className="text-sm text-gray-600 ml-2">{answersText[1]}</span>
       </div>
+      <Button onClick={handleSubmit} className="w-fit ml-auto cursor-default">
+        Next
+      </Button>
+    </div>
   );
 }

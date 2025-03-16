@@ -15,6 +15,7 @@ matcher = Matcher()
 data_lock = threading.Lock()
 
 
+
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 @app.route("/", methods=["GET"])
@@ -63,7 +64,7 @@ def surveySubmit():
                 json.dump(all_data, FILE)
 
             # Create Person
-            newPerson = matcher.add_person(Person(new_data))
+            newPerson = Person(new_data)
 
             weights_object = {
                 "person_info": newPerson.self_info,
@@ -105,8 +106,21 @@ def leaderboard():
         return jsonify({"error": "Incorrect GET Method"}), 400
 
     leaderboard = sorted(matcher.matches, key=lambda m: -m[3])[:10]
+    print(leaderboard)
     return jsonify({"message": "OK", "leaderboard": leaderboard}), 200
 
+# have to call this on the backend to generate 
+# disabled until we want to use it
+@app.route("/v1/generateMatches", methods=["GET"])
+def generate_matches():
+    if request.method != "GET":
+        return jsonify({"error": "Incorrect GET Method"}), 400
+
+    try:
+        matcher.generate_matches()  # Generate matches in memory
+        return jsonify({"message": "Matches generated successfully in memory"}), 200
+    except Exception as e:
+        return jsonify({"error": f"Failed to generate matches: {str(e)}"}), 500
 
 def craft_email(left_email, right_email, is_lover, email_password):
     """

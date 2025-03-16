@@ -1,4 +1,4 @@
-from matching_algos.cosine_similarity import cosine_similarity
+from matching_algos.cosine_similarity import cosine_similarity_with_age_exp
 from matching_algos.gale_shapley import gale_shapley
 import json
 from person import Person
@@ -31,12 +31,12 @@ def filter_preferences(preference_list, group_A, group_B):
 class Matcher:
 
     def __init__(self):
-        self.persons = []
+        self.persons = {}
         # [(email, email, is_lover, score_percentage)]
         self.matches = []
 
     def add_person(self, person):
-        self.persons.append(person)
+        self.persons[person.get_email()] = person
         return person
 
     def get_person(self, email):
@@ -57,7 +57,7 @@ class Matcher:
                     self_answer_weights=weights["self_weights"],
                     pref_partner_answer_weights=weights["partner_weights"]
                 )
-                self.persons.append(person)
+                self.persons[person.get_email()] = person
             except Exception as e:
                 print(f"Error creating Person for {email}: {e}")
                 continue
@@ -74,7 +74,7 @@ class Matcher:
         male_female = []
         female_male = []
 
-        for person in self.persons:
+        for person in self.persons.values():
             if (person.get_gender() == "m" and person.get_sexuality() == "m"):
                 male_male.append(person)
             elif (person.get_gender() == "f" and person.get_sexuality() == "f"):
@@ -138,7 +138,7 @@ class Matcher:
             for right_person in preferred_partners:
                 if (left_person.get_email() != right_person.get_email()):
                     matches.append(
-                        (right_person.get_email(), cosine_similarity(left_person.get_pref_partner_answer_weights(), right_person.get_self_answer_weights())))
+                        (right_person.get_email(), cosine_similarity_with_age_exp(left_person.get_pref_partner_answer_weights(), right_person.get_self_answer_weights(), left_person.get_age(), right_person.get_age())))
 
             matches.sort(key=lambda match: -match[1])
             preferences[left_person.get_email()] = matches

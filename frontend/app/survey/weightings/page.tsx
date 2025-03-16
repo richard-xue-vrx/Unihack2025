@@ -6,25 +6,28 @@ import ScaleQuestionTemplate from "../ScaleQuestionTemplate";
 import { Scale } from "@/QuestionTypes";
 import { useRouter } from "next/navigation";
 
-export default function Weightings() {
-  const weightingTypes = ["personality", "morals", "politics", "interest_hobbies", "life_goals", "love_languages", "lifestyle"];
-  const weightingScaleQuestions = weightingTypes.map(weight => {
-    const scaleQuestionAbuse: Scale = {
-      category_name: "lifestyle",
-      type: "SCALE",
-      is_self_question: true,
-      is_similar_question: true,
-      question: `How important is ${weight} to you?`,
-      answers: []
-    }
-    return scaleQuestionAbuse;
-  })
+const weightingTypes = ["personality", "morals", "politics", "interest_hobbies", "life_goals", "love_languages", "lifestyle"];
+const weightingScaleQuestions = weightingTypes.map(weight => {
+  const scaleQuestionAbuse: Scale = {
+    category_name: "lifestyle",
+    type: "SCALE",
+    is_self_question: true,
+    is_similar_question: true,
+    question: `How important is ${weight} to you?`,
+    answers: []
+  }
+  return scaleQuestionAbuse;
+})
 
+export default function Weightings() {
   const router = useRouter();
 
   const context = useUserData();
   if (!context) return <div>Error: UserDataProvider is missing</div>;
+  console.log(context)
+
   const { userData, setUserData } = context;
+  console.log(context)
   console.log(userData);
 
   const [index, setIndex] = React.useState(0);
@@ -53,8 +56,8 @@ export default function Weightings() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen gap-8">
-      <main className="flex flex-col space-y-4 min-w-[360px] max-w-[480px]">
+    <div className="flex flex-col justify-center items-center h-screen gap-8 bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 p-8 caret-transparent">
+      <main className="flex flex-col space-y-4 min-w-[480px] max-w-[600px] p-6 bg-white rounded-lg shadow-lg">
         <ScaleQuestionTemplate scaleQuestion={weightingScaleQuestions[index]} onSubmit={onSubmit}/>
       </main>
     </div>

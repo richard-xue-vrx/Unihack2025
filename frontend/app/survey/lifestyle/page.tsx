@@ -25,8 +25,8 @@ export default function SurveyLifestyle() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen gap-8">
-      <main className="flex flex-col space-y-4 min-w-[360px] max-w-[480px]">
+    <div className="flex flex-col justify-center items-center h-screen gap-8 bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 p-8 caret-transparent">
+      <main className="flex flex-col space-y-4 min-w-[480px] max-w-[600px] p-6 bg-white rounded-lg shadow-lg">
         <div className="text-base">
           1. ⭐ Life Style ⭐
         </div>
