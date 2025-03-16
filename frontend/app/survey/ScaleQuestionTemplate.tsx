@@ -49,39 +49,31 @@ export default function ScaleQuestionTemplate({ scaleQuestion, onSubmit }: {
 
   return (
     <div className="flex flex-col items-center space-y-6 w-[480px] md:h-[480px] min-w-[360px] max-w-[480px] caret-transparent">
-      <div className="text-2xl font-semibold text-center mb-4">
+      <div className="text-1xl font-semibold text-center mb-4 h-24">
         {scaleQuestion.question}
       </div>
-      <div className="flex items-center gap-4 w-full justify-center">
-        {/* Left Label */}
-        <span className="text-sm text-gray-600 mr-2">{answersText[0]}</span>
-
-        {/* Scale Selection */}
+      <div className="flex items-center gap-4 w-full justify-center grow">
+        <span className="text-sm w-24 text-gray-600 mr-2">{answersText[0]}</span>
         <div className="flex gap-4">
           {[1, 2, 3, 4, 5].map((number) => (
             <div
-              key={number}
-              onClick={() => handleCircleClick(number)}
-              className={cn(
-                "w-12 h-12 flex justify-center items-center rounded-full cursor-pointer transition-colors",
-                selectedAnswer === number
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-200 text-black hover:bg-gray-300"
-              )}
-              style={{ userSelect: "none" }}
+            key={number}
+            onClick={() => handleCircleClick(number)}
+            className={cn(
+              "w-12 h-12 flex justify-center items-center rounded-full cursor-pointer transition-colors",
+              selectedAnswer === number
+              ? "bg-blue-500 text-white"
+              : "bg-gray-200 text-black hover:bg-gray-300"
+            )}
+            style={{ userSelect: "none" }}
             >
               {number}
             </div>
           ))}
         </div>
-
-        {/* Right Label */}
-        <span className="text-sm text-gray-600 ml-2">{answersText[1]}</span>
+        <span className="text-sm w-24 text-gray-600 ml-2">{answersText[1]}</span>
       </div>
-      <div className="grow">
-        {/* spacer */}
-      </div>
-      <Button onClick={handleSubmit} className="w-fit ml-auto mt-auto select-none">
+      <Button onClick={handleSubmit} className="w-fit ml-auto select-none">
         Next
       </Button>
     </div>
