@@ -379,7 +379,7 @@ const moralsQuestion4: Ranked = {
   type: "RANKED",
   is_self_question: true,
   is_similar_question: true,
-  question: "Your partner has been accused of something serious at work, but they insist they’re innocent. If you defend them publicly and they turn out guilty, your reputation will take a huge hit. What do you do?",
+  question: "Your partner has been accused of a severe crime, but they insist they’re innocent. What do you do?",
   answers: [
     "🛡️ Defend them no matter what",
     "💬 Support them privately but stay neutral in public",
